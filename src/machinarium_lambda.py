@@ -8,6 +8,7 @@ import pymysql
 from importlib import import_module
 from configs.schema_metadata import schemas, tables, partitions
 
+
 # DevOps configs data
 ACCOUNTS = {
     '623692085147': 'sandbox',
