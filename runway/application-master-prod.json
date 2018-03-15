@@ -1,0 +1,13 @@
+{
+  "app": {
+    "lambda_memory": "128",
+    "lambda_timeout": "300",
+    "app_ssh_key": "prod_access"
+  },
+  "security_group": {
+    "lambda_extras": [
+      "enabled_access_apps_all",
+      "enabled_access_public_office"
+    ]
+  }
+}

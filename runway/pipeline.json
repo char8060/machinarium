@@ -1,0 +1,28 @@
+{
+  "type": "lambda",
+  "owner_email": "oshyshkin@gogoair.com",
+  "notifications": {
+    "email": "oshyshkin@gogoair.com",
+    "slack": "#ds-alert"
+  },
+  "deployment": "spinnaker",
+  "env": [
+    "stage",
+    "prod"
+  ],
+  "lambda": {
+    "app_description": "AWS Lambda for triggering updates in S3 buckets and send updates in MySQL meta store",
+    "runtime": "python2.7",
+    "handler": "machinarium_lambda.lambda_handler",
+    "vpc_enabled": true
+  },
+  "services": {
+    "lambda": true,
+    "s3": [
+      "gogo-udp-prod",
+      "gogo-udp-stage",
+      "gogo-udp-ds-prod",
+      "gogo-udp-ds-stage"
+    ]
+  }
+}

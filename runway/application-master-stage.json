@@ -1,0 +1,22 @@
+{
+  "app": {
+    "lambda_memory": "128",
+    "lambda_timeout": "300",
+    "app_ssh_key": "stage_access"
+  },
+  "security_group": {
+    "lambda_extras": [
+      "enabled_access_apps_all",
+      "enabled_access_public_office"
+    ]
+  },
+  "lambda_triggers": [
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/",
+    "sufix": ""
+  }
+  ]
+}
