@@ -1,6 +1,6 @@
 from contextlib import contextmanager
 from datetime import datetime
-from io import StringIO
+from io import BytesIO
 import pandas as pd
 import time
 import boto3
@@ -29,7 +29,7 @@ def track_time(processor_name, action, bucket, folder):
             }])
 
         # Write into file
-        csv_buffer = StringIO()
+        csv_buffer = BytesIO()
         df.to_csv(csv_buffer, index=False, header=False)
 
         # Upload CSV to S3
