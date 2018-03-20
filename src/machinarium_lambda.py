@@ -52,13 +52,13 @@ def get_connection(metalayer_config):
         return conn
     except Exception as err:
         logger.error("{exception}. "
-                     "Could not connect to the MySql instance. "
+                     "Could not connect to the RDS instance. "
                      "Host: {host}, Database: {db}, User: {user}, Port: {port}, Connection timeout: {con_tout}"
                      .format(exception=err,
                              host=metalayer_config['host'],
                              db=metalayer_config['database'],
                              user=metalayer_config['user'],
-                             port=metalayer_config['user'],
+                             port=metalayer_config['port'],
                              con_tout=metalayer_config['connect_timeout']))
         sys.exit()
 
@@ -217,7 +217,8 @@ def get_partition(s3_event_object, table, partitions_dict):
 
     # Inconsistency
     if partition not in s3_event_object:
-        logger.error("There is no {tbl_and_prt} in {s3_metadata}".format(tbl_and_prt=partition,
+        logger.error("Structure is broken. "
+                     "There is no {tbl_and_prt} in {s3_metadata}".format(tbl_and_prt=partition,
                                                                          s3_metadata=s3_event_object))
         sys.exit()
 
