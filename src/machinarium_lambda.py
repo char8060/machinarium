@@ -6,6 +6,7 @@ import urllib
 import logging
 import pymysql
 from importlib import import_module
+from trackin_time_utils import track_time
 from configs.schema_metadata import SCHEMAS, TABLES, PARTITIONS
 
 
@@ -261,7 +262,10 @@ def lambda_handler(event, context):
     """
     env = ACCOUNTS[context.invoked_function_arn.split(":")[4]].lower()
 
-    metalayer_configs = set_modules(env).metalayer_config
+    env_config = set_modules(env)
+    metalayer_configs = env_config.metalayer_config
+    instrumentation_bucket = env_config.S3
+    instrumentation_dir = env_config.DIR
 
     logger.info("Event: {}".format(event))
     bucket = urllib.unquote_plus(event['Records'][0]['s3']['bucket']['name'].encode('utf8'))
@@ -283,8 +287,17 @@ def lambda_handler(event, context):
     logger.info("Partition(s): {}".format(partition))
     logger.info("Updated time: {}".format(event_time))
 
-    conn = get_connection(metalayer_configs)
-    insert_into_updates(connection=conn, table=table, path=path, file=file, partition=partition, time=event_time)
+    with track_time(processor_name='lambda',
+                    action='connect_to_db',
+                    bucket=instrumentation_bucket,
+                    folder=instrumentation_dir):
+        conn = get_connection(metalayer_configs)
+
+    with track_time(processor_name='lambda',
+                    action='inset_into_updates',
+                    bucket=instrumentation_bucket,
+                    folder=instrumentation_dir):
+        insert_into_updates(connection=conn, table=table, path=path, file=file, partition=partition, time=event_time)
 
     conn.close()
     logger.info("Done. Table is updated")

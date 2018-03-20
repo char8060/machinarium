@@ -7,3 +7,7 @@ metalayer_config = {
     'port': 3306,
     'connect_timeout': 10
 }
+
+# For instrumentation
+S3 = 'gogo-udp-ds-stage'
+DIR = 'logs/machinarium/instrumentation'
