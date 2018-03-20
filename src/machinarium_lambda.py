@@ -6,7 +6,7 @@ import urllib
 import logging
 import pymysql
 from importlib import import_module
-from configs.schema_metadata import schemas, tables, partitions
+from configs.schema_metadata import SCHEMAS, TABLES, PARTITIONS
 
 
 # DevOps configs data
@@ -46,12 +46,54 @@ def get_connection(metalayer_config):
     :return: conn; Object to interact with MySQL server.
     """
     try:
+        logger.info("Getting connection to to RDS instance")
         conn = pymysql.connect(**metalayer_config)
-        logger.info("Connected to RDS MySQL instance")
+        logger.info("Connected to RDS instance")
         return conn
-    except:
-        logger.error("Could not connect to the MySql instance")
+    except Exception as err:
+        logger.error("{exception}. "
+                     "Could not connect to the MySql instance. "
+                     "Host: {host}, Database: {db}, User: {user}, Port: {port}, Connection timeout: {con_tout}"
+                     .format(exception=err,
+                             host=metalayer_config['host'],
+                             db=metalayer_config['database'],
+                             user=metalayer_config['user'],
+                             port=metalayer_config['user'],
+                             con_tout=metalayer_config['connect_timeout']))
         sys.exit()
+
+
+def insert_into_updates(connection, table, path, file, partition, time):
+    """
+
+    :param connection: pymysql.connect() connection.
+    :param table: table name, where file was updated/created.
+    :param path: path to the new file. Type = String
+    :param file: file name. Type = String
+    :param partition: partition where file was updated/created. Type = String
+    :param time: updated time. Datetime object.
+    """
+    try:
+        with connection.cursor() as cur:
+            cur.execute(''' 
+                INSERT INTO updates (`table_name`, `file_path`, `file_name`, `partition_name`,`updated_on`,`updated_by`) 
+                VALUES ('{table_name}', '{file_path}', '{file_name}', '{partition}', '{updated_on}', "lambda")
+                ON DUPLICATE KEY UPDATE
+                    `file_name` = '{file_name}',
+                    `updated_on` = '{updated_on}';
+                '''.format(
+                table_name=table,
+                file_path=path,
+                file_name=file,
+                partition=partition,
+                updated_on=time.strftime("%Y-%m-%d %H:%M:%S")
+                )
+            )
+            connection.commit()
+    except Exception as err:
+        logger.error("{exception}. "
+                     "Can not execute `INSERT INTO updates`. ".format(exception=err))
+        raise Exception
 
 
 def get_file(s3_event_object):
@@ -93,21 +135,27 @@ def get_schema(s3_event_object, schemas_list):
         temp = dict(collect_list)
         return temp[min(temp.keys())]
     else:
-        logger.error("There is no schema from this list: {schs}".format(schs=schemas_list))
+        logger.error("{event} doesn't consist a schema from  this list: {schs}"
+                     .format(event=s3_event_object,
+                             schs=SCHEMAS)
+                     )
         sys.exit()
 
 
-def get_table(s3_event_object, schema_tables):
+def get_table(s3_event_object, schema, tables_dict):
     """
     Method to get table.
     Exit if there is no table from the config list (schema_metadata.py) or there is no such schema.
 
     :param s3_event_object: tring with file name and path to this file. Type = String
-    :param schema_tables: List of tables for particular schema in config file. Type = List
+    :param schema: Schema name to get a list of tables from config file. Type = String
+    :param tables_dict: A dictionary. Key: schema name
+                                      Value: list of tables.
+                        Type = Dictionary.
     :return: table. Type = String
     """
     table = None
-
+    schema_tables = tables_dict[schema]
     for element in schema_tables:
         if "/{}/".format(element) in s3_event_object:
             table = element
@@ -117,18 +165,26 @@ def get_table(s3_event_object, schema_tables):
     if table is not None:
         return table
     else:
-        logger.error("There is tables from this list: {tbls}".format(tbls=schema_tables))
+        logger.error("{event} doesn't match with configs structure. "
+                     "For [{schema}] schema a table from the list is expected. List: {tbls}"
+                     .format(event=s3_event_object,
+                             schema='',
+                             tbls=schema_tables)
+                     )
         sys.exit()
 
 
-def get_partition(s3_event_object, table_partitions):
+def get_partition(s3_event_object, table, partitions_dict):
     """
     Method to get partition(s).
     Exit if there is a mismatching or an inconsistency
     between a getting partitions and config partitions.
 
     :param s3_event_object: tring with file name and path to this file. Type = String
-    :param table_partitions: List of partitions for particular schema in config file. Type = List
+    :param table: Table name to get a list of partitions from config file. Type = String
+    :param partitions_dict: A dictionary. Key: schema.table string.
+                                          Value: list of partitions.
+                            Type = Dictionary.
     :return: partition. Type = String ( can be a sequence like 'year=.../month=...'
     """
     partition = ''
@@ -136,17 +192,20 @@ def get_partition(s3_event_object, table_partitions):
     partitions_from_event_object = []
     partition_check_list = []
 
+    table_partitions = partitions_dict[table]
+
     for element in split(s3_event_object)[0].split('/'):
         if '=' in element:
             partitions_from_event_object.append(element)
-            #
             partition_check_list.append(element.split('=')[0])
 
     # Mismatching partitions
     if len(set(partition_check_list).symmetric_difference(set(table_partitions))) != 0:
-        logger.error("There is a mismatching between sets of partitions. "
-                     "Metadata partitions: {p1} "
-                     "Gotten partitions: {p2}".format(p1=table_partitions,
+        logger.error("{event} doesn't match with configs structure. "
+                     "For {table} the next partitions are expected: {p1} "
+                     "Gotten partitions: {p2}".format(event=s3_event_object,
+                                                      table=table,
+                                                      p1=table_partitions,
                                                       p2=partition_check_list)
                      )
         sys.exit()
@@ -163,33 +222,20 @@ def get_partition(s3_event_object, table_partitions):
     return partition[1:]
 
 
-def get_metadata(s3_event_object, schemas, tables, partitions):
+def get_metadata(s3_event_object, schemas_list, tables_dict, partitions_dict):
     """
     Method which returns parsed data from s3_event_object.
 
     :param s3_event_object: String with file name and path to this file. Type = String
-    :param schemas: List of schemas in config file. Type = List
-    :param tables: List of tables for particular schema in config file. Type = List
-    :param partitions: List of partitions for particular schema in config file. Type = List
+    :param schemas_list: List of schemas in config file. Type = List
+    :param tables_dict: List of tables for particular schema in config file. Type = List
+    :param partitions_dict: List of partitions for particular schema in config file. Type = List
     :return: schema, table, path, file, partition. Type = String (for all values)
     """
     file = get_file(s3_event_object)
-
-    schema = get_schema(s3_event_object, schemas)
-
-    try:
-        table = get_table(s3_event_object, tables[schema])
-    except LookupError:
-        logger.error("There is no table data for for {schm} in schema_metadata.py".format(schm=schema))
-        logger.info("Table data in schema_metadata.py: {}".format(tables))
-        sys.exit()
-
-    try:
-        partition = get_partition(s3_event_object, partitions[table])
-    except LookupError:
-        logger.error("There is no partition data for for {tbl} in schema_metadata.py".format(tbl=table))
-        logger.info("Table data in schema_metadata.py: {}".format(tables))
-        sys.exit()
+    schema = get_schema(s3_event_object, schemas_list)
+    table = get_table(s3_event_object, schema, tables_dict)
+    partition = get_partition(s3_event_object, (schema + '.' + table).lower(), partitions_dict)
 
     # Inconsistency
     if table + '/' + partition not in s3_event_object:
@@ -209,7 +255,6 @@ def lambda_handler(event, context):
 
     :param event: S3 metadata in JSON like format. Type = String
     :param context: runtime information; not used; object.
-    :return: None
     """
     env = ACCOUNTS[context.invoked_function_arn.split(":")[4]].lower()
 
@@ -221,7 +266,7 @@ def lambda_handler(event, context):
     s3_event_object = urllib.unquote_plus(event['Records'][0]['s3']['object']['key'].encode('utf8'))
     logger.info("S3 object: {}".format(s3_event_object))
 
-    schema, table, path, file, partition = get_metadata(s3_event_object, schemas, tables, partitions)
+    schema, table, path, file, partition = get_metadata(s3_event_object, SCHEMAS, TABLES, PARTITIONS)
 
     table = "{schm}.{tbl}".format(schm=schema.lower(),
                                   tbl=table.lower())
@@ -236,23 +281,7 @@ def lambda_handler(event, context):
     logger.info("Updated time: {}".format(event_time))
 
     conn = get_connection(metalayer_configs)
-
-    with conn.cursor() as cur:
-        cur.execute(''' 
-            INSERT INTO updates (`table_name`, `file_path`, `file_name`, `partition_name`,`updated_on`, `updated_by`) 
-            VALUES              ('{table_name}', '{file_path}', '{file_name}', '{partition}', '{updated_on}', "lambda")
-            ON DUPLICATE KEY UPDATE
-                `file_name` = '{file_name}',
-                `updated_on` = '{updated_on}';
-            '''.format(
-            table_name=table,
-            file_path=path,
-            file_name=file,
-            partition=partition,
-            updated_on=event_time.strftime("%Y-%m-%d %H:%M:%S")
-            )
-        )
-        conn.commit()
+    insert_into_updates(connection=conn, table=table, path=path, file=file, time=event_time)
 
     conn.close()
     logger.info("Done. Table is updated")

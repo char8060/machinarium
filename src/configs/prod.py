@@ -1,7 +1,7 @@
 # RDS MySQL instance
 metalayer_config = {
     'host': 'db.machinarium.prod.gogoair.com',
-    'database': 'machinarium',
+    'database': 'p2',
     'user': 'machinarium',
     'password': '',
     'port': 3306,
