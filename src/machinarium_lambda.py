@@ -281,7 +281,7 @@ def lambda_handler(event, context):
     logger.info("Updated time: {}".format(event_time))
 
     conn = get_connection(metalayer_configs)
-    insert_into_updates(connection=conn, table=table, path=path, file=file, time=event_time)
+    insert_into_updates(connection=conn, table=table, path=path, file=file, partition=partition, time=event_time)
 
     conn.close()
     logger.info("Done. Table is updated")
