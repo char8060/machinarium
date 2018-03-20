@@ -6,7 +6,7 @@ import urllib
 import logging
 import pymysql
 from importlib import import_module
-from trackin_time_utils import track_time
+from tracking_time_utils import track_time
 from configs.schema_metadata import SCHEMAS, TABLES, PARTITIONS
 
 
