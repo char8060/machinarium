@@ -168,7 +168,7 @@ def get_table(s3_event_object, schema, tables_dict):
         logger.error("{event} doesn't match with configs structure. "
                      "For [{schema}] schema a table from the list is expected. List: {tbls}"
                      .format(event=s3_event_object,
-                             schema='',
+                             schema=schema,
                              tbls=schema_tables)
                      )
         sys.exit()
