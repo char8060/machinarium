@@ -36,5 +36,5 @@ def track_time(processor_name, action, bucket, folder):
         file_name = processor_name+'-'+datetime.utcnow().strftime("%Y-%m-%d-%H-%M-%S-%f")+'.csv'
         s3 = boto3.resource('s3')
         s3.Object(bucket, folder + '/' + file_name).put(Body=csv_buffer.getvalue())
-    except:
-        pass
+    except Exception as details:
+        print(details)
