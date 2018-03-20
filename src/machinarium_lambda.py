@@ -200,7 +200,9 @@ def get_partition(s3_event_object, table, partitions_dict):
             partition_check_list.append(element.split('=')[0])
 
     # Mismatching partitions
-    if len(set(partition_check_list).symmetric_difference(set(table_partitions))) != 0:
+    symmetric_set_difference = set(partition_check_list).symmetric_difference(set(table_partitions))
+    if (len(symmetric_set_difference) != 0 & len(partition_check_list) == len(table_partitions)) | \
+            (len(partition_check_list) != len(table_partitions)):
         logger.error("{event} doesn't match with configs structure. "
                      "For {table} the next partitions are expected: {p1} "
                      "Gotten partitions: {p2}".format(event=s3_event_object,
