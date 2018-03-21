@@ -1,7 +1,5 @@
 from contextlib import contextmanager
 from datetime import datetime
-from io import BytesIO
-import pandas as pd
 import time
 import boto3
 
@@ -21,20 +19,16 @@ def track_time(processor_name, action, bucket, folder):
 
     try:
         exec_time = time.time() - t0
-        df = pd.DataFrame([{
-            'processor': processor_name,
-            'datetime': datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"),
-            'action': action,
-            'execution_time': round(exec_time, 4)
-            }])
-
-        # Write into file
-        csv_buffer = BytesIO()
-        df.to_csv(csv_buffer, index=False, header=False)
+        record = '{processor},{datetime},{action},{execution_time}'\
+            .format(processor=processor_name,
+                    datetime=datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"),
+                    action=action,
+                    execution_time=round(exec_time, 4)
+                    )
 
         # Upload CSV to S3
         file_name = processor_name+'-'+datetime.utcnow().strftime("%Y-%m-%d-%H-%M-%S-%f")+'.csv'
         s3 = boto3.resource('s3')
-        s3.Object(bucket, folder + '/' + file_name).put(Body=csv_buffer.getvalue())
+        s3.Object(bucket, folder + '/' + file_name).put(Body=record, ServerSideEncryption='AES256')
     except Exception as details:
         print(details)
