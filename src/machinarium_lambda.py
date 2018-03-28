@@ -287,14 +287,17 @@ def lambda_handler(event, context):
     logger.info("Partition(s): {}".format(partition))
     logger.info("Updated time: {}".format(event_time))
 
+    message = 'Casused by {pth}/{file}'.format(pth=path, file=file)
     with track_time(processor_name='lambda',
                     action='connect_to_db',
+                    message=message,
                     bucket=instrumentation_bucket,
                     folder=instrumentation_dir):
         conn = get_connection(metalayer_configs)
 
     with track_time(processor_name='lambda',
-                    action='inset_into_updates',
+                    action='insert_into_updates',
+                    message=message,
                     bucket=instrumentation_bucket,
                     folder=instrumentation_dir):
         insert_into_updates(connection=conn, table=table, path=path, file=file, partition=partition, time=event_time)
