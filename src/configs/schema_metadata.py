@@ -40,7 +40,12 @@ TABLES = {
               'type_3_client_clean',
               'type_4_client_clean',
 
-              'fact_flight_wap_availability'
+              'fact_flight_wap_availability',
+
+              'messages_logs',
+              'messages_logs_p2',
+
+              'KANDU_files'
               ]
 }
 
@@ -77,6 +82,11 @@ PARTITIONS = {
      'opex.type_4_client_clean': ["partition_date"],
 
      'opex.fact_flight_wap_availability': ["partition_date"],
+
+     'opex.messages_logs': ["partition_date"],
+     'opex.messages_logs_p2': ["partition_date"],
+
+     'opex.kandu_files': ["partition_date"],
 
      'rdp.fact_flight_availability': ["partition_date", "flight_source"],
      'rdp.fact_flight_segment': ["partition_date", "flight_source"],
