@@ -91,9 +91,9 @@ PARTITIONS = {
      'rdp.fact_flight_availability': ["partition_date", "flight_source"],
      'rdp.fact_flight_segment': ["partition_date", "flight_source"],
 
-     'xdw.DIM_AIRCRAFT': ['year', 'month'],
-     'xdw.DIM_FLIGHT': ['year', 'month'],
-     'xdw.FACT_MEDIA_USAGE': ["partition_date"],
-     'xdw.DIM_MEDIA_USAGE_FLT_KEY': ["partition_date"]
+     'xdw.dim_aircraft': ['year', 'month'],
+     'xdw.dim_flight': ['year', 'month'],
+     'xdw.fact_media_usage': ["partition_date"],
+     'xdw.dim_media_usage_flt_key': ["partition_date"]
 }
 
