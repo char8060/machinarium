@@ -31,6 +31,160 @@
     "events": ["s3:ObjectCreated:*"],
     "prefix": "data/opex/type_4_logs/",
     "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_1_header_flatten/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_2_header_flatten/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_3_header_flatten/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_4_header_flatten/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_1_client_flatten/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_2_client_flatten/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_3_client_flatten/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_4_client_flatten/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_4_client_flatten/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_1_client_clean/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_2_client_clean/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_3_client_clean/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_4_client_clean/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_1_header_clean/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_2_header_clean/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_3_header_clean/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_4_header_clean/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_1_header_w_dom_pos/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_2_header_w_dom_pos/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_3_header_w_dom_pos/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/type_4_header_w_dom_pos/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/fact_flight_wap_availability/",
+    "sufix": ""
   }
   ]
 }
