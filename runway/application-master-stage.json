@@ -15,7 +15,7 @@
     "type": "s3",
     "bucket": "gogo-udp-ds-stage",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "data/",
+    "prefix": "data/opex/",
     "sufix": ""
   }
   ]

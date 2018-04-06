@@ -19,7 +19,7 @@ ACCOUNTS = {
 }
 
 logger = logging.getLogger()
-logger.setLevel(logging.WARNING)
+logger.setLevel(logging.INFO)
 
 logger.info("Lambda was triggered")
 
