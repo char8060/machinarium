@@ -19,7 +19,7 @@ ACCOUNTS = {
 }
 
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.WARNING)
 
 logger.info("Lambda was triggered")
 
@@ -107,7 +107,7 @@ def get_file(s3_event_object):
     """
     path, file = split(s3_event_object)
     if file == '':
-        logger.warnning("There is no file to update table")
+        logger.warning("There is no file to update table")
         sys.exit()
     else:
         return file
@@ -136,7 +136,7 @@ def get_schema(s3_event_object, schemas_list):
         temp = dict(collect_list)
         return temp[min(temp.keys())]
     else:
-        logger.warnning("{event} doesn't consist a schema from  this list: {schs}"
+        logger.warning("{event} doesn't consist a schema from  this list: {schs}"
                         .format(event=s3_event_object,
                              schs=SCHEMAS)
                         )
@@ -166,7 +166,7 @@ def get_table(s3_event_object, schema, tables_dict):
     if table is not None:
         return table
     else:
-        logger.warnning("{event} doesn't match with configs structure. "
+        logger.warning("{event} doesn't match with configs structure. "
                         "For [{schema}] schema a table from the list is expected. List: {tbls}"
                         .format(event=s3_event_object,
                                 schema=schema,
@@ -204,7 +204,7 @@ def get_partition(s3_event_object, table, partitions_dict):
     symmetric_set_difference = set(partition_check_list).symmetric_difference(set(table_partitions))
     if (len(symmetric_set_difference) != 0 & len(partition_check_list) == len(table_partitions)) | \
             (len(partition_check_list) != len(table_partitions)):
-        logger.warnning("{event} doesn't match with configs structure. "
+        logger.warning("{event} doesn't match with configs structure. "
                         "For {table} the next partitions are expected: {p1} "
                         "Gotten partitions: {p2}".format(event=s3_event_object,
                                                          table=table,
@@ -218,7 +218,7 @@ def get_partition(s3_event_object, table, partitions_dict):
 
     # Inconsistency
     if partition not in s3_event_object:
-        logger.warnning("Structure is broken. "
+        logger.warning("Structure is broken. "
                         "There is no {tbl_and_prt} in {s3_metadata}".format(tbl_and_prt=partition,
                                                                             s3_metadata=s3_event_object))
         sys.exit()
