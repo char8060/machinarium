@@ -92,13 +92,6 @@
     "type": "s3",
     "bucket": "gogo-udp-ds-stage",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "data/opex/type_4_client_flatten/",
-    "sufix": ""
-  },
-  {
-    "type": "s3",
-    "bucket": "gogo-udp-ds-stage",
-    "events": ["s3:ObjectCreated:*"],
     "prefix": "data/opex/type_1_client_clean/",
     "sufix": ""
   },
