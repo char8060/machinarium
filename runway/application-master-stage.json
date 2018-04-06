@@ -178,6 +178,20 @@
     "events": ["s3:ObjectCreated:*"],
     "prefix": "data/opex/fact_flight_wap_availability/",
     "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "CA/RDP/fact_flight_segment/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "CA/RDP/fact_flight_availability/",
+    "sufix": ""
   }
   ]
 }
