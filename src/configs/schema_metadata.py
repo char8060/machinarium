@@ -1,7 +1,9 @@
 # Name of schema on S3, that's why name is case sensitive
 SCHEMAS = ['RDP', 'XDW', 'opex']
 
-# table = folder name on S3
+# Dictionary of tables
+# Key: Schema
+# Value: List of tables
 TABLES = {
      'RDP': ['fact_flight_availability',
              'fact_flight_segment'],
@@ -49,8 +51,9 @@ TABLES = {
               ]
 }
 
-# Need to combine schema name and table name
-# Using to create a list of job; in database it's usually in lowercase
+# Valid partitions for each table
+# Key: table name ( schema + table)
+# Value: List of partitions
 PARTITIONS = {
      'opex.type_1_logs': ["partition_date"],
      'opex.type_2_logs': ["partition_date"],
@@ -91,7 +94,7 @@ PARTITIONS = {
      'rdp.fact_flight_availability': ["partition_date", "flight_source"],
      'rdp.fact_flight_segment': ["partition_date", "flight_source"],
 
-     'xdw.dim_aircraft': ['year', 'month'],
+     'xdw.dim_aircraft': [],
      'xdw.dim_flight': ['year', 'month'],
      'xdw.fact_media_usage': ["partition_date"],
      'xdw.dim_media_usage_flt_key': ["partition_date"]
