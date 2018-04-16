@@ -24,7 +24,7 @@ logger.info("Lambda was triggered")
 def set_modules(env_name):
     """
     Returns a module with necessary configs.
-    Otherwise rises an error.
+    Otherwise raises an error.
 
     :param env_name: Environment variable. Type = String
     :return: Module object.
@@ -40,7 +40,7 @@ def set_modules(env_name):
 def get_connection(metalayer_config):
     """
     Returns an pymysql connection object.
-    Otherwise rises an error.
+    Otherwise raises an error.
 
     :return: conn; Object to interact with MySQL server.
     """
@@ -99,7 +99,7 @@ def insert_into_updates(connection, table, path, file, partition, time):
 def get_file(s3_event_object):
     """
     Returns a file name if exists.
-    Otherwise rises an exception.
+    Otherwise raises an exception.
 
     :param s3_event_object: String with file name and path to this file. Type = String
     :return: file. Type = String
@@ -116,7 +116,7 @@ def get_file(s3_event_object):
 def get_schema(s3_event_object, schemas_list):
     """
     Returns a schema name if there is valid example in `s3_event_object`.
-    Otherwise rises an exception.
+    Otherwise raises an exception.
 
     :param s3_event_object: String with file name and path to this file. Type = String
     :param schemas_list: List of schemas in config file. Type = List
@@ -145,7 +145,7 @@ def get_schema(s3_event_object, schemas_list):
 def get_table(s3_event_object, schema, tables_dict):
     """
     Returns a table name if there is valid example in `s3_event_object`.
-    Otherwise rises an exception.
+    Otherwise raises an exception.
 
     :param s3_event_object: tring with file name and path to this file. Type = String
     :param schema: Schema name to get a list of tables from config file. Type = String
