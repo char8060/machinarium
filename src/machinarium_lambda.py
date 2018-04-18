@@ -149,9 +149,8 @@ def get_table(s3_event_object, schema, tables_dict):
 
     :param s3_event_object: tring with file name and path to this file. Type = String
     :param schema: Schema name to get a list of tables from config file. Type = String
-    :param tables_dict: A dictionary. Key: schema name
-                                      Value: list of tables.
-                        Type = Dictionary.
+    :param tables_dict: A dictionary. Type = Dictionary. Key: schema name
+                                                         Value: list of tables.
     :return: table. Type = String
     """
     table = None
@@ -180,10 +179,9 @@ def get_partition(s3_event_object, table, partitions_dict):
 
     :param s3_event_object: tring with file name and path to this file. Type = String
     :param table: Table name to get a list of partitions from config file. Type = String
-    :param partitions_dict: A dictionary. Key: schema.table string.
-                                          Value: list of partitions.
-                            Type = Dictionary.
-    :return: partition. Type = String ( can be a sequence like 'year=.../month=...'
+    :param partitions_dict: A dictionary. Type = Dictionary. Key: schema.table string.
+                                                             Value: list of partitions.
+    :return: partition. Type = String ( can be a sequence like 'year=.../month=...')
     """
     partition = ''
 
@@ -259,7 +257,7 @@ def lambda_handler(event, context):
     About "context":  https://docs.aws.amazon.com/lambda/latest/dg/python-context-object.html
 
     :param event: S3 metadata in JSON like format. Type = String
-    :param context: runtime information; not used; object.
+    :param context: runtime information; object.
     """
     env = ACCOUNTS[context.invoked_function_arn.split(":")[4]].lower()
 
@@ -274,11 +272,9 @@ def lambda_handler(event, context):
 
     schema, table, path, file, partition = get_metadata(s3_event_object, SCHEMAS, TABLES, PARTITIONS)
 
-    table = "{schm}.{tbl}".format(schm=schema.lower(),
-                                  tbl=table.lower())
+    table = "{schm}.{tbl}".format(schm=schema.lower(), tbl=table.lower())
 
-    event_time = datetime.strptime(event['Records'][0]['eventTime'],
-                                   "%Y-%m-%dT%H:%M:%S.%fZ")
+    event_time = datetime.strptime(event['Records'][0]['eventTime'], "%Y-%m-%dT%H:%M:%S.%fZ")
 
     logger.info("Table: {}".format(table))
     logger.info("File path on S3: {bkt}/{pth}".format(bkt=bucket, pth=path))
