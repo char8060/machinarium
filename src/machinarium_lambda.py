@@ -137,7 +137,7 @@ def get_schema(s3_event_object, schemas_list):
         return temp[min(temp.keys())]
     else:
         warning = "{event} doesn't consist a schema from  this list: {schs}".format(event=s3_event_object,
-                                                                                    schs=SCHEMAS)
+                                                                                    schs=schemas_list)
         logger.warning(warning)
         raise Exception(warning)
 
