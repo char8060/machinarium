@@ -64,7 +64,7 @@ def get_connection(metalayer_config):
 
 def insert_into_updates(connection, table, path, file, partition, time):
     """
-    Execute insert query to store metadata about table update.
+    Executes insert query to store metadata about table update.
 
     :param connection: pymysql.connect() connection.
     :param table: table name, where file was updated/created.
@@ -96,15 +96,15 @@ def insert_into_updates(connection, table, path, file, partition, time):
         raise Exception
 
 
-def get_file(s3_event_object):
+def get_file(object_path):
     """
     Returns a file name if exists.
     Otherwise raises an exception.
 
-    :param s3_event_object: String with file name and path to this file. Type = String
+    :param object_path: String with file name and path to this file. Type = String
     :return: file. Type = String
     """
-    path, file = split(s3_event_object)
+    path, file = split(object_path)
     if file != '':
         return file
     else:
@@ -113,12 +113,12 @@ def get_file(s3_event_object):
         raise Exception(warning)
 
 
-def get_schema(s3_event_object, schemas_list):
+def get_schema(object_path, schemas_list):
     """
-    Returns a schema name if there is valid example in `s3_event_object`.
+    Returns a schema name if there is valid example in `object_path`.
     Otherwise raises an exception.
 
-    :param s3_event_object: String with file name and path to this file. Type = String
+    :param object_path: String with file name and path to this file. Type = String
     :param schemas_list: List of schemas in config file. Type = List
     :return: schema. Type = String
     """
@@ -127,27 +127,27 @@ def get_schema(s3_event_object, schemas_list):
     # Check if there is a schema we track
     collect_list = list()
     for element in schemas_list:
-        if "/{}/".format(element) in s3_event_object:
+        if "/{}/".format(element) in object_path:
             # We are taking the first schema we meet in event string
-            schema, index = element, s3_event_object.index("/{}/".format(element))
+            schema, index = element, object_path.index("/{}/".format(element))
             collect_list.append((index, schema))
 
     if schema is not None:
         temp = dict(collect_list)
         return temp[min(temp.keys())]
     else:
-        warning = "{event} doesn't consist a schema from  this list: {schs}".format(event=s3_event_object,
-                                                                                    schs=schemas_list)
+        warning = "{event} doesn't consist a schema from  this list: {schemas}".format(event=object_path,
+                                                                                       schemas=schemas_list)
         logger.warning(warning)
         raise Exception(warning)
 
 
-def get_table(s3_event_object, schema, tables_dict):
+def get_table(object_path, schema, tables_dict):
     """
-    Returns a table name if there is valid example in `s3_event_object`.
+    Returns a table name from a tables list if it exists in `object_path`.
     Otherwise raises an exception.
 
-    :param s3_event_object: tring with file name and path to this file. Type = String
+    :param object_path: tring with file name and path to this file. Type = String
     :param schema: Schema name to get a list of tables from config file. Type = String
     :param tables_dict: A dictionary. Type = Dictionary. Key: schema name
                                                          Value: list of tables.
@@ -156,7 +156,7 @@ def get_table(s3_event_object, schema, tables_dict):
     table = None
     schema_tables = tables_dict[schema]
     for element in schema_tables:
-        if "/{}/".format(element) in s3_event_object:
+        if "/{}/".format(element) in object_path:
             table = element
             # We assume there is only one table name
             break
@@ -165,19 +165,18 @@ def get_table(s3_event_object, schema, tables_dict):
         return table
     else:
         warning = "{event} doesn't match with configs structure. " \
-                  "For [{schema}] schema a table from the list is expected. List: {tbls}".format(event=s3_event_object,
-                                                                                                 schema=schema,
-                                                                                                 tbls=schema_tables)
+                  "For [{schema}] schema a table from the list is expected. " \
+                  "List: {tables}".format(event=object_path, schema=schema, tables=schema_tables)
         logger.warning(warning)
         raise Exception(warning)
 
 
-def get_partition(s3_event_object, table, partitions_dict):
+def get_partition(object_path, table, partitions_dict):
     """
-    Returns partition part of the `s3_event_object`.
+    Returns partition part of the `object_path`.
     Raise am exception if there is a mismatching with configs.
 
-    :param s3_event_object: tring with file name and path to this file. Type = String
+    :param object_path: tring with file name and path to this file. Type = String
     :param table: Table name to get a list of partitions from config file. Type = String
     :param partitions_dict: A dictionary. Type = Dictionary. Key: schema.table string.
                                                              Value: list of partitions.
@@ -190,7 +189,7 @@ def get_partition(s3_event_object, table, partitions_dict):
 
     table_partitions = partitions_dict[table]
 
-    for element in split(s3_event_object)[0].split('/'):
+    for element in split(object_path)[0].split('/'):
         if '=' in element:
             partitions_from_event_object.append(element)
             partitions_check_list.append(element.split('=')[0])
@@ -202,7 +201,7 @@ def get_partition(s3_event_object, table, partitions_dict):
 
         warning = "{event} doesn't match with configs structure. " \
                   "For {table} the next partitions are expected: {p1} " \
-                  "Gotten partitions: {p2}".format(event=s3_event_object,
+                  "Gotten partitions: {p2}".format(event=object_path,
                                                    table=table,
                                                    p1=table_partitions,
                                                    p2=partitions_check_list)
@@ -213,10 +212,10 @@ def get_partition(s3_event_object, table, partitions_dict):
         partition += '/' + element
 
     # Inconsistency
-    if partition not in s3_event_object:
+    if partition not in object_path:
         warning = "Structure is broken. " \
                   "There is no {tbl_and_prt} in {s3_metadata}".format(tbl_and_prt=partition,
-                                                                      s3_metadata=s3_event_object)
+                                                                      s3_metadata=object_path)
         logger.warning(warning)
         raise Exception(warning)
 
@@ -224,29 +223,29 @@ def get_partition(s3_event_object, table, partitions_dict):
     return partition[1:]
 
 
-def get_metadata(s3_event_object, schemas_list, tables_dict, partitions_dict):
+def get_metadata(object_path, schemas_list, tables_dict, partitions_dict):
     """
-    Returns parsed metadata from s3_event_object.
+    Returns parsed metadata from object_path.
 
-    :param s3_event_object: String with file name and path to this file. Type = String
+    :param object_path: String with file name and path to this file. Type = String
     :param schemas_list: List of schemas in config file. Type = List
     :param tables_dict: List of tables for particular schema in config file. Type = List
     :param partitions_dict: List of partitions for particular schema in config file. Type = List
     :return: schema, table, path, file, partition. Type = String (for all values)
     """
-    file = get_file(s3_event_object)
-    schema = get_schema(s3_event_object, schemas_list)
-    table = get_table(s3_event_object, schema, tables_dict)
-    partition = get_partition(s3_event_object, (schema + '.' + table).lower(), partitions_dict)
+    file = get_file(object_path)
+    schema = get_schema(object_path, schemas_list)
+    table = get_table(object_path, schema, tables_dict)
+    partition = get_partition(object_path, (schema + '.' + table).lower(), partitions_dict)
 
     # Inconsistency
-    if table + '/' + partition not in s3_event_object:
-        warning = "There is no {tbl_and_prt} in {s3_metadata}".format(tbl_and_prt=table + '/' + partition,
-                                                                      s3_metadata=s3_event_object)
+    if table + '/' + partition not in object_path:
+        warning = "There is no {tbl_and_prt} in {object_path}".format(tbl_and_prt=table + '/' + partition,
+                                                                      object_path=object_path)
         logger.warning(warning)
         raise Exception(warning)
 
-    path = split(s3_event_object)[0]
+    path = split(object_path)[0]
     return schema, table, path, file, partition
 
 
@@ -267,17 +266,17 @@ def lambda_handler(event, context):
     logger.info("Event: {}".format(event))
     bucket = urllib.unquote_plus(event['Records'][0]['s3']['bucket']['name'].encode('utf8'))
     logger.info("S3 bucket: {}".format(bucket))
-    s3_event_object = urllib.unquote_plus(event['Records'][0]['s3']['object']['key'].encode('utf8'))
-    logger.info("S3 object: {}".format(s3_event_object))
+    object_path = urllib.unquote_plus(event['Records'][0]['s3']['object']['key'].encode('utf8'))
+    logger.info("S3 object: {}".format(object_path))
 
-    schema, table, path, file, partition = get_metadata(s3_event_object, SCHEMAS, TABLES, PARTITIONS)
+    schema, table, path, file, partition = get_metadata(object_path, SCHEMAS, TABLES, PARTITIONS)
 
-    table = "{schm}.{tbl}".format(schm=schema.lower(), tbl=table.lower())
+    table = "{schema}.{table}".format(schema=schema.lower(), table=table.lower())
 
     event_time = datetime.strptime(event['Records'][0]['eventTime'], "%Y-%m-%dT%H:%M:%S.%fZ")
 
     logger.info("Table: {}".format(table))
-    logger.info("File path on S3: {bkt}/{pth}".format(bkt=bucket, pth=path))
+    logger.info("File path on S3: {bucket}/{path}".format(bucket=bucket, path=path))
     logger.info("File:{}".format(file))
     logger.info("Partition(s): {}".format(partition))
     logger.info("Updated time: {}".format(event_time))
