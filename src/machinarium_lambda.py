@@ -44,22 +44,10 @@ def get_connection(metalayer_config):
 
     :return: conn; Object to interact with MySQL server.
     """
-    try:
-        logger.info("Getting connection to to RDS instance")
-        conn = pymysql.connect(**metalayer_config)
-        logger.info("Connected to RDS instance")
-        return conn
-    except Exception as err:
-        logger.error("{exception}. "
-                     "Could not connect to the RDS instance. "
-                     "Host: {host}, Database: {db}, User: {user}, Port: {port}, Connection timeout: {con_tout}"
-                     .format(exception=err,
-                             host=metalayer_config['host'],
-                             db=metalayer_config['database'],
-                             user=metalayer_config['user'],
-                             port=metalayer_config['port'],
-                             con_tout=metalayer_config['connect_timeout']))
-        raise Exception
+    logger.info("Getting connection to to RDS instance")
+    conn = pymysql.connect(**metalayer_config)
+    logger.info("Connected to RDS instance")
+    return conn
 
 
 def insert_into_updates(connection, table, path, file, partition, time):
@@ -74,26 +62,25 @@ def insert_into_updates(connection, table, path, file, partition, time):
     :param time: updated time. Datetime object.
     """
     query = ''' 
-            INSERT INTO updates (`table_name`, `file_path`, `file_name`, `partition_name`,`updated_on`,`updated_by`) 
-            VALUES ('{table_name}', '{file_path}', '{file_name}', '{partition}', '{updated_on}', "lambda")
+            INSERT INTO updates (`table_name`, `file_path`, `file_name`, `partition_name`,`event_time`, 
+                                 `updated_on`,`updated_by`) 
+            VALUES ('{table_name}', '{file_path}', '{file_name}', '{partition}', '{event_time}',
+                    '{updated_on}', "lambda")
             ON DUPLICATE KEY UPDATE
                 `file_name` = '{file_name}',
+                `event_time` = '{event_time}'
                 `updated_on` = '{updated_on}';
             '''.format(
                 table_name=table,
                 file_path=path,
                 file_name=file,
                 partition=partition,
-                updated_on=time.strftime("%Y-%m-%d %H:%M:%S"))
+                event_time=time.strftime("%Y-%m-%d %H:%M:%S"),
+                updated_on=datetime.utcnow().strftime("%Y-%m-%d-%H-%M-%S"))
 
-    try:
-        with connection.cursor() as cur:
-            cur.execute(query)
-            connection.commit()
-    except Exception as err:
-        logger.error("{exception}. "
-                     "Can not execute {query}.".format(exception=err, query=query))
-        raise Exception
+    with connection.cursor() as cur:
+        cur.execute(query)
+        connection.commit()
 
 
 def get_file(object_path):
@@ -263,6 +250,7 @@ def lambda_handler(event, context):
     env_config = set_modules(env)
     metalayer_configs = env_config.metalayer_config
 
+    logger.info("Log stream name: {}".format(context.log_stream_name))
     logger.info("Event: {}".format(event))
     bucket = urllib.unquote_plus(event['Records'][0]['s3']['bucket']['name'].encode('utf8'))
     logger.info("S3 bucket: {}".format(bucket))
@@ -281,8 +269,30 @@ def lambda_handler(event, context):
     logger.info("Partition(s): {}".format(partition))
     logger.info("Updated time: {}".format(event_time))
 
-    conn = get_connection(metalayer_configs)
-    insert_into_updates(connection=conn, table=table, path=path, file=file, partition=partition, time=event_time)
+    try:
+        conn = get_connection(metalayer_configs)
+    except Exception as details:
+        logger.error("Log stream name: {log_stream}. "
+                     "{exception}. "
+                     "Could not connect to the RDS instance. "
+                     "Host: {host}, Database: {db}, User: {user}, Port: {port}, Connection timeout: {con_tout}"
+                     .format(log_stream=context.log_stream_name,
+                             exception=details,
+                             host=metalayer_configs['host'],
+                             db=metalayer_configs['database'],
+                             user=metalayer_configs['user'],
+                             port=metalayer_configs['port'],
+                             con_tout=metalayer_configs['connect_timeout']))
+        raise Exception
+
+    try:
+        insert_into_updates(connection=conn, table=table, path=path, file=file, partition=partition, time=event_time)
+    except Exception as details:
+        logger.error("Log stream name: {log_stream}. "
+                     "{exception}. "
+                     "Can not execute insert into [p2].[updates].".format(log_stream=context.log_stream_name,
+                                                                          exception=details))
+        raise Exception
 
     conn.close()
     logger.info("Done. Table is updated")
