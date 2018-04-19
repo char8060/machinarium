@@ -266,7 +266,7 @@ def lambda_handler(event, context):
     logger.info("File path on S3: {bucket}/{path}".format(bucket=bucket, path=path))
     logger.info("File:{}".format(file))
     logger.info("Partition(s): {}".format(partition))
-    logger.info("Updated time: {}".format(event_time))
+    logger.info("Event time: {}".format(event_time))
 
     try:
         conn = get_connection(metalayer_configs)
