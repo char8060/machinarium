@@ -65,18 +65,17 @@ def insert_into_updates(connection, table, path, file, partition, time):
             INSERT INTO updates (`table_name`, `file_path`, `file_name`, `partition_name`,`event_time`, 
                                  `updated_on`,`updated_by`) 
             VALUES ('{table_name}', '{file_path}', '{file_name}', '{partition}', '{event_time}',
-                    '{updated_on}', "lambda")
+                    UTC_TIMESTAMP(), "lambda")
             ON DUPLICATE KEY UPDATE
                 `file_name` = '{file_name}',
-                `event_time` = '{event_time}'
-                `updated_on` = '{updated_on}';
+                `event_time` = '{event_time}',
+                `updated_on` =  UTC_TIMESTAMP();
             '''.format(
                 table_name=table,
                 file_path=path,
                 file_name=file,
                 partition=partition,
-                event_time=time.strftime("%Y-%m-%d %H:%M:%S"),
-                updated_on=datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"))
+                event_time=time.strftime("%Y-%m-%d %H:%M:%S"))
 
     with connection.cursor() as cur:
         cur.execute(query)
