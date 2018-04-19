@@ -76,7 +76,7 @@ def insert_into_updates(connection, table, path, file, partition, time):
                 file_name=file,
                 partition=partition,
                 event_time=time.strftime("%Y-%m-%d %H:%M:%S"),
-                updated_on=datetime.utcnow().strftime("%Y-%m-%d-%H-%M-%S"))
+                updated_on=datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"))
 
     with connection.cursor() as cur:
         cur.execute(query)
