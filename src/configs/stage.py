@@ -5,5 +5,5 @@ metalayer_config = {
     'user': 'machinarium',
     'password': 'mc#Ku1P',
     'port': 3306,
-    'connect_timeout': 10
+    'connect_timeout': 90
 }

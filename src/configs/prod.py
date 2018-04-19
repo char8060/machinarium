@@ -5,5 +5,5 @@ metalayer_config = {
     'user': 'p2_rw',
     'password': 'p#aZp89',
     'port': 3306,
-    'connect_timeout': 10
+    'connect_timeout': 90
 }
