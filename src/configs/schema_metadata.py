@@ -48,7 +48,8 @@ TABLES = {
               'messages_logs',
               'messages_logs_p2',
 
-              'KANDU_files'
+              'KANDU_files',
+              'KANDU_files_minute_p2'
               ]
 }
 
@@ -92,6 +93,7 @@ PARTITIONS = {
      'opex.messages_logs_p2': ["partition_date"],
 
      'opex.kandu_files': ["partition_date"],
+     'opex.kandu_files_minute_p2': ["partition_date"],    
 
      'rdp.fact_flight_availability': ["partition_date", "flight_source"],
      'rdp.fact_flight_segment': ["partition_date", "flight_source"],
