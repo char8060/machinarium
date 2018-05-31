@@ -43,6 +43,7 @@ TABLES = {
               'type_4_client_clean',
 
               'fact_flight_wap_availability',
+              'fact_flight_wap_availability_new_definition',
 
               'messages_logs',
               'messages_logs_p2',
@@ -85,6 +86,7 @@ PARTITIONS = {
      'opex.type_4_client_clean': ["partition_date"],
 
      'opex.fact_flight_wap_availability': ["partition_date"],
+     'opex.fact_flight_wap_availability_new_definition': ["partition_date"],
 
      'opex.messages_logs': ["partition_date"],
      'opex.messages_logs_p2': ["partition_date"],
