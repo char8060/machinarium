@@ -6,7 +6,10 @@ SCHEMAS = ['RDP', 'XDW', 'opex']
 # Value: List of tables
 TABLES = {
      'RDP': ['fact_flight_availability',
-             'fact_flight_segment'],
+             'fact_flight_segment',
+             'sm_2ku_record_logs',
+             'sm_ku_record_logs',
+     ],
 
      'XDW': ['DIM_AIRCRAFT',
              'DIM_FLIGHT',
@@ -97,6 +100,8 @@ PARTITIONS = {
 
      'rdp.fact_flight_availability': ["partition_date", "flight_source"],
      'rdp.fact_flight_segment': ["partition_date", "flight_source"],
+     'rdp.sm_2ku_record_logs': ["partition_date"],
+     'rdp.sm_ku_record_logs': ["partition_date"],
 
      'xdw.dim_aircraft': [],
      'xdw.dim_flight': ['year', 'month'],
