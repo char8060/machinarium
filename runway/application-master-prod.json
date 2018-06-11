@@ -199,20 +199,6 @@
     "events": ["s3:ObjectCreated:*"],
     "prefix": "data/opex/KANDU_files_minute_p2/",
     "sufix": ""
-  },
-  {
-    "type": "s3",
-    "bucket": "gogo-udp-prod",
-    "events": ["s3:ObjectCreated:*"],
-    "prefix": "CA/RDP/SM_2KU_RECORD_LOGS/",
-    "sufix": ""
-  },
-  {
-    "type": "s3",
-    "bucket": "gogo-udp-prod",
-    "events": ["s3:ObjectCreated:*"],
-    "prefix": "CA/RDP/SM_KU_RECORD_LOGS/",
-    "sufix": ""
   }
   ]
 }
