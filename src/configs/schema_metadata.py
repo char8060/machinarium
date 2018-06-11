@@ -7,8 +7,8 @@ SCHEMAS = ['RDP', 'XDW', 'opex']
 TABLES = {
      'RDP': ['fact_flight_availability',
              'fact_flight_segment',
-             'sm_2ku_record_logs',
-             'sm_ku_record_logs',
+             'SM_2KU_RECORD_LOGS',
+             'SM_KU_RECORD_LOGS'
      ],
 
      'XDW': ['DIM_AIRCRAFT',
