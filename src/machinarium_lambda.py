@@ -225,9 +225,10 @@ def get_metadata(object_path, schemas_list, tables_dict, partitions_dict):
     partition = get_partition(object_path, (schema + '.' + table).lower(), partitions_dict)
 
     # Inconsistency
-    if table + '/' + partition not in object_path:
-        warning = "There is no {tbl_and_prt} in {object_path}".format(tbl_and_prt=table + '/' + partition,
-                                                                      object_path=object_path)
+    check_consistency = "{table}/{partition}/{file}". format(table=table, partition=partition, file=file)
+    if check_consistency not in object_path:
+        warning = "There is no {consist} in {object_path}".format(consist=check_consistency,
+                                                                  object_path=object_path)
         logger.warning(warning)
         raise Exception(warning)
 
