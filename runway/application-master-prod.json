@@ -199,6 +199,13 @@
     "events": ["s3:ObjectCreated:*"],
     "prefix": "data/opex/KANDU_files_minute_p2/",
     "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/satcom_decile/",
+    "sufix": ""
   }
   ]
 }
