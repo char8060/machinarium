@@ -8,8 +8,16 @@ TABLES = {
      'RDP': ['fact_flight_availability',
              'fact_flight_segment',
              'SM_2KU_RECORD_LOGS',
-             'SM_KU_RECORD_LOGS'
-     ],
+             'SM_KU_RECORD_LOGS',
+             'WAP_TYPE_1_SUMMARY',
+             'WAP_TYPE_2_SUMMARY',
+             'WAP_TYPE_3_SUMMARY',
+             'WAP_TYPE_4_SUMMARY',
+             'WAP_TYPE_1_CLIENT',
+             'WAP_TYPE_2_CLIENT',
+             'WAP_TYPE_3_CLIENT',
+             'WAP_TYPE_4_CLIENT'
+            ],
 
      'XDW': ['DIM_AIRCRAFT',
              'DIM_FLIGHT',
@@ -102,10 +110,17 @@ PARTITIONS = {
      'rdp.fact_flight_segment': ["partition_date", "flight_source"],
      'rdp.sm_2ku_record_logs': ["partition_date"],
      'rdp.sm_ku_record_logs': ["partition_date"],
+     'rdp.wap_type_1_summary': ["partition_date"],
+     'rdp.wap_type_2_summary': ["partition_date"],
+     'rdp.wap_type_3_summary': ["partition_date"],
+     'rdp.wap_type_4_summary': ["partition_date"],
+     'rdp.wap_type_1_client': ["partition_date"],
+     'rdp.wap_type_2_client': ["partition_date"],
+     'rdp.wap_type_3_client': ["partition_date"],
+     'rdp.wap_type_4_client': ["partition_date"],
 
      'xdw.dim_aircraft': [],
      'xdw.dim_flight': ['year', 'month'],
      'xdw.fact_media_usage': ["partition_date"],
      'xdw.dim_media_usage_flt_key': ["partition_date"]
 }
-
