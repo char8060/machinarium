@@ -22,7 +22,8 @@ TABLES = {
      'XDW': ['DIM_AIRCRAFT',
              'DIM_FLIGHT',
              'DIM_MEDIA_USAGE_FLT_KEY',
-             'FACT_MEDIA_USAGE'],
+             'FACT_MEDIA_USAGE',
+             'FACT_USAGE'],
 
      'opex': ['type_1_logs',
               'type_2_logs',
@@ -126,5 +127,6 @@ PARTITIONS = {
      'xdw.dim_aircraft': [],
      'xdw.dim_flight': ['year', 'month'],
      'xdw.fact_media_usage': ["partition_date"],
-     'xdw.dim_media_usage_flt_key': ["partition_date"]
+     'xdw.dim_media_usage_flt_key': ["partition_date"],
+     'xdw.fact_usage':["partition_date"]
 }
