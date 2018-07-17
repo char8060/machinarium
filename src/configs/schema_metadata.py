@@ -63,7 +63,10 @@ TABLES = {
               'KANDU_files',
               'KANDU_files_minute_p2',
               
-              'satcom_decile'
+              'satcom_decile',
+              
+              'parsed_devices',
+              'abs_device_info'
               ]
 }
 
@@ -110,6 +113,8 @@ PARTITIONS = {
      'opex.kandu_files_minute_p2': ["partition_date"],
      
      'opex.satcom_decile': ["source", "partition_date"],
+     'opex.parsed_devices': ["source", "partition_date"],
+     'opex.abs_device_info':["source", "partition_date"],
 
      'rdp.fact_flight_availability': ["partition_date", "flight_source"],
      'rdp.fact_flight_segment': ["partition_date", "flight_source"],
