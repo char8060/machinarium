@@ -181,16 +181,44 @@
   },
   {
     "type": "s3",
-    "bucket": "gogo-udp-stage",
+    "bucket": "gogo-udp-ds-stage",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "CA/RDP/fact_flight_segment/",
+    "prefix": "data/opex/KANDU_files/",
     "sufix": ""
   },
   {
     "type": "s3",
-    "bucket": "gogo-udp-stage",
+    "bucket": "gogo-udp-ds-stage",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "CA/RDP/fact_flight_availability/",
+    "prefix": "data/opex/KANDU_files_minute_p2/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/satcom_decile/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/messages_logs/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/parsed_devices/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/abs_device_info/",
     "sufix": ""
   }
   ]
