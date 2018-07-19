@@ -227,6 +227,13 @@
     "events": ["s3:ObjectCreated:*"],
     "prefix": "data/opex/abs_device_info/",
     "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/antennas_current_features/",
+    "sufix": ""
   }
   ]
 }
