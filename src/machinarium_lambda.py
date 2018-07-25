@@ -220,9 +220,14 @@ def get_metadata(object_path, schemas_list, tables_dict, partitions_dict):
     :return: schema, table, path, file, partition. Type = String (for all values)
     """
     file = get_file(object_path)
-    schema = get_schema(object_path, schemas_list)
-    table = get_table(object_path, schema, tables_dict)
-    partition = get_partition(object_path, (schema + '.' + table).lower(), partitions_dict)
+    if "gogo-udp-canonical-logs-" in object_path:
+        schema = "abs"
+        table = "canonical_abs"
+        partition = get_partition(object_path, (schema + '.' + table).lower(), partitions_dict)
+    else:
+        schema = get_schema(object_path, schemas_list)
+        table = get_table(object_path, schema, tables_dict)
+        partition = get_partition(object_path, (schema + '.' + table).lower(), partitions_dict)
 
     # Inconsistency
     check_consistency = "{table}/{partition}/{file}". format(table=table, partition=partition, file=file)
