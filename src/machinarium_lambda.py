@@ -224,18 +224,26 @@ def get_metadata(object_path, schemas_list, tables_dict, partitions_dict):
         schema = "abs"
         table = "canonical_abs"
         partition = get_partition(object_path, (schema + '.' + table).lower(), partitions_dict)
+
+        # Inconsistency
+        check_consistency = "{partition}/{file}".format(table=table, partition=partition, file=file)
+        if check_consistency not in object_path:
+            warning = "There is no {cosist} in {s3_event_object}".format(cosist=check_consistency,
+                                                                         s3_event_object=object_path)
+            logger.warning(warning)
+
     else:
         schema = get_schema(object_path, schemas_list)
         table = get_table(object_path, schema, tables_dict)
         partition = get_partition(object_path, (schema + '.' + table).lower(), partitions_dict)
 
-    # Inconsistency
-    check_consistency = "{table}/{partition}/{file}". format(table=table, partition=partition, file=file)
-    if check_consistency not in object_path:
-        warning = "There is no {consist} in {object_path}".format(consist=check_consistency,
-                                                                  object_path=object_path)
-        logger.warning(warning)
-        raise Exception(warning)
+        # Inconsistency
+        check_consistency = "{table}/{partition}/{file}". format(table=table, partition=partition, file=file)
+        if check_consistency not in object_path:
+            warning = "There is no {consist} in {object_path}".format(consist=check_consistency,
+                                                                      object_path=object_path)
+            logger.warning(warning)
+            raise Exception(warning)
 
     path = split(object_path)[0]
     return schema, table, path, file, partition
