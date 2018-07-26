@@ -67,7 +67,8 @@ TABLES = {
               'satcom_decile',
               
               'parsed_devices',
-              'abs_device_info'
+              'abs_device_info',
+              'antennas_current_health'
               ]
 }
 
@@ -117,6 +118,7 @@ PARTITIONS = {
      'opex.satcom_decile': ["source", "partition_date"],
      'opex.parsed_devices': ["source", "partition_date"],
      'opex.abs_device_info':["source", "partition_date"],
+     'opex.antennas_current_health':["partition_date"],
 
      'rdp.fact_flight_availability': ["partition_date", "flight_source"],
      'rdp.fact_flight_segment': ["partition_date", "flight_source"],
