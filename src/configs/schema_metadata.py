@@ -63,6 +63,7 @@ TABLES = {
               'KANDU_files',
               'KANDU_files_minute_p2',
               'antennas_current_features',
+              'antennas_current_features_enriched_submode420',
               
               'satcom_decile',
               
@@ -111,6 +112,7 @@ PARTITIONS = {
      'opex.messages_logs': ["partition_date"],
      'opex.messages_logs_p2': ["partition_date"],
      'opex.antennas_current_features': ["partition_date"],
+     'opex.antennas_current_features_enriched_submode420': ["partition_date"],
 
      'opex.kandu_files': ["partition_date"],
      'opex.kandu_files_minute_p2': ["partition_date"],
