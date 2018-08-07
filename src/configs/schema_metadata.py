@@ -69,7 +69,8 @@ TABLES = {
               
               'parsed_devices',
               'abs_device_info',
-              'antennas_current_health'
+              'antennas_current_health',
+              'antennas_mtbf'
               ]
 }
 
@@ -121,6 +122,7 @@ PARTITIONS = {
      'opex.parsed_devices': ["source", "partition_date"],
      'opex.abs_device_info':["source", "partition_date"],
      'opex.antennas_current_health':["partition_date"],
+     'opex.antennas_mtbf':["partition_date"],
 
      'rdp.fact_flight_availability': ["partition_date", "flight_source"],
      'rdp.fact_flight_segment': ["partition_date", "flight_source"],
