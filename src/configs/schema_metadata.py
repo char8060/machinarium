@@ -67,6 +67,7 @@ TABLES = {
               
               'satcom_decile',
               'satcom_decile_tail',
+              'satcom_decile_grid',
               
               'parsed_devices',
               'abs_device_info',
@@ -121,6 +122,7 @@ PARTITIONS = {
      
      'opex.satcom_decile': ["source", "partition_date"],
      'opex.satcom_decile_tail': ["source", "partition_date"],
+     'opex.satcom_decile_grid': ["source", "partition_date"],
      
      'opex.parsed_devices': ["source", "partition_date"],
      'opex.abs_device_info':["source", "partition_date"],

@@ -218,6 +218,13 @@
     "type": "s3",
     "bucket": "gogo-udp-ds-prod",
     "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/satcom_decile_grid/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-prod",
+    "events": ["s3:ObjectCreated:*"],
     "prefix": "data/opex/messages_logs/",
     "sufix": ""
   },
