@@ -232,14 +232,14 @@
     "type": "s3",
     "bucket": "gogo-udp-ds-prod",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "data/opex/parsed_devices/",
+    "prefix": "data/opex/abs_device_info/",
     "sufix": ""
   },
   {
     "type": "s3",
     "bucket": "gogo-udp-ds-prod",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "data/opex/abs_device_info/",
+    "prefix": "data/opex/abs_device_info_with_duplication/",
     "sufix": ""
   },
   {
