@@ -68,9 +68,9 @@ TABLES = {
               'satcom_decile',
               'satcom_decile_tail',
               'satcom_decile_grid',
-              
-              'parsed_devices',
+
               'abs_device_info',
+              'abs_device_info_with_duplication',
               'antennas_current_health',
               'antennas_mtbf'
               ]
