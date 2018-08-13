@@ -1,9 +1,8 @@
 # Name of schema on S3, that's why name is case sensitive
-SCHEMAS = ['RDP', 'XDW', 'opex']
+SCHEMAS = ['RDP', 'XDW', 'opex', 'satcom']
 
 # Dictionary of tables
 # Key: Schema
-# Value: List of tables
 TABLES = {
      'RDP': ['fact_flight_availability',
              'fact_flight_segment',
@@ -62,23 +61,26 @@ TABLES = {
 
               'KANDU_files',
               'KANDU_files_minute_p2',
-              'antennas_current_features',
-              'antennas_current_features_enriched_submode420',
-              
+
               'satcom_decile',
               'satcom_decile_tail',
               'satcom_decile_grid',
 
               'abs_device_info',
-              'abs_device_info_with_duplication',
+              'abs_device_info_with_duplication'
+              ],
+
+     'satcom': [
+              'antennas_current_features',
+              'antennas_current_features_enriched_submode420',
               'antennas_current_health',
               'antennas_mtbf'
               ]
 }
+# Value: List of tables
 
 # Valid partitions for each table
 # Key: table name ( schema + table)
-# Value: List of partitions
 PARTITIONS = {
      'opex.type_1_logs': ["partition_date"],
      'opex.type_2_logs': ["partition_date"],
@@ -114,12 +116,10 @@ PARTITIONS = {
 
      'opex.messages_logs': ["partition_date"],
      'opex.messages_logs_p2': ["partition_date"],
-     'opex.antennas_current_features': ["partition_date"],
-     'opex.antennas_current_features_enriched_submode420': ["partition_date"],
 
      'opex.kandu_files': ["partition_date"],
      'opex.kandu_files_minute_p2': ["partition_date"],
-     
+
      'opex.satcom_decile': ["source", "partition_date"],
      'opex.satcom_decile_tail': ["source", "partition_date"],
      'opex.satcom_decile_grid': ["source", "partition_date"],
@@ -127,8 +127,10 @@ PARTITIONS = {
      'opex.abs_device_info': ["source", "partition_date"],
      'opex.abs_device_info_with_duplication': ["source", "partition_date"],
 
-     'opex.antennas_current_health': ["partition_date"],
-     'opex.antennas_mtbf': ["partition_date"],
+     'satcom.antennas_current_features': ["partition_date"],
+     'satcom.antennas_current_features_enriched_submode420': ["partition_date"],
+     'satcom.antennas_current_health': ["partition_date"],
+     'satcom.antennas_mtbf': ["partition_date"],
 
      'rdp.fact_flight_availability': ["partition_date", "flight_source"],
      'rdp.fact_flight_segment': ["partition_date", "flight_source"],
@@ -152,3 +154,4 @@ PARTITIONS = {
      # schema and table values are hardcoded in code
      'abs.canonical_abs': ["partition_date", "source"]
 }
+# Value: List of partitions
