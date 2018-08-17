@@ -71,16 +71,15 @@ TABLES = {
               ],
 
      'satcom': [
-              'antennas_current_features',
-              'antennas_current_features_enriched_submode420',
-              'antennas_current_health',
-              'antennas_mtbf'
-              ]
+         'antenna_gmm_features',
+         'antenna_gmm_output',
+         'antenna_regression_features',
+         'antenna_regression_output'
+        ]
 }
 # Value: List of tables
 
 # Valid partitions for each table
-# Key: table name ( schema + table)
 PARTITIONS = {
      'opex.type_1_logs': ["partition_date"],
      'opex.type_2_logs': ["partition_date"],
@@ -127,10 +126,10 @@ PARTITIONS = {
      'opex.abs_device_info': ["source", "partition_date"],
      'opex.abs_device_info_with_duplication': ["source", "partition_date"],
 
-     'satcom.antennas_current_features': ["partition_date"],
-     'satcom.antennas_current_features_enriched_submode420': ["partition_date"],
-     'satcom.antennas_current_health': ["partition_date"],
-     'satcom.antennas_mtbf': ["partition_date"],
+     'satcom.antenna_gmm_features': ["partition_date"],
+     'satcom.antenna_gmm_output': ["partition_date"],
+     'satcom.antenna_regression_features': ["partition_date"],
+     'satcom.antenna_regression_output': ["partition_date"],
 
      'rdp.fact_flight_availability': ["partition_date", "flight_source"],
      'rdp.fact_flight_segment': ["partition_date", "flight_source"],
@@ -154,4 +153,5 @@ PARTITIONS = {
      # schema and table values are hardcoded in code
      'abs.canonical_abs': ["partition_date", "source"]
 }
+# Key: table name ( schema + table)
 # Value: List of partitions

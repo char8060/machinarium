@@ -246,28 +246,28 @@
     "type": "s3",
     "bucket": "gogo-udp-ds-prod",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "data/satcom/antennas_current_features/",
+    "prefix": "data/satcom/antenna_gmm_features/",
     "sufix": ""
   },
   {
     "type": "s3",
     "bucket": "gogo-udp-ds-prod",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "data/satcom/antennas_current_features_enriched_submode420/",
+    "prefix": "data/satcom/antenna_regression_features/",
     "sufix": ""
   },
   {
     "type": "s3",
     "bucket": "gogo-udp-ds-prod",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "data/satcom/antennas_current_health/",
+    "prefix": "data/satcom/antenna_gmm_output/",
     "sufix": ""
   },
   {
     "type": "s3",
     "bucket": "gogo-udp-ds-prod",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "data/satcom/antennas_mtbf/",
+    "prefix": "data/satcom/antenna_regression_output/",
     "sufix": ""
   }
   ]
