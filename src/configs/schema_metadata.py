@@ -15,7 +15,8 @@ TABLES = {
              'WAP_TYPE_1_CLIENT',
              'WAP_TYPE_2_CLIENT',
              'WAP_TYPE_3_CLIENT',
-             'WAP_TYPE_4_CLIENT'
+             'WAP_TYPE_4_CLIENT',
+             'FACT_DRC_MESSAGES_DAILY'
             ],
 
      'XDW': ['DIM_AIRCRAFT',
@@ -143,6 +144,7 @@ PARTITIONS = {
      'rdp.wap_type_2_client': ["partition_date"],
      'rdp.wap_type_3_client': ["partition_date"],
      'rdp.wap_type_4_client': ["partition_date"],
+     'rdp.fact_drc_messages_daily': ["partition_date"],
 
      'xdw.dim_aircraft': [],
      'xdw.dim_flight': ['year', 'month'],

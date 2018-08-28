@@ -269,6 +269,13 @@
     "events": ["s3:ObjectCreated:*"],
     "prefix": "data/satcom/antenna_regression_output/",
     "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-maslo-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "RDP/FACT_DRC_MESSAGES_DAILY/",
+    "sufix": ""
   }
   ]
 }
