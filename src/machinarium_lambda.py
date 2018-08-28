@@ -117,6 +117,9 @@ def get_schema(object_path, schemas_list):
             # We are taking the first schema we meet in event string
             schema, index = element, object_path.index("/{}/".format(element))
             collect_list.append((index, schema))
+        elif object_path.startswith(element + "/"):
+            schema, index = element, object_path.index("{}/".format(element))
+            collect_list.append((index, schema))
 
     if schema is not None:
         temp = dict(collect_list)
