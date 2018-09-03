@@ -183,6 +183,13 @@
     "type": "s3",
     "bucket": "gogo-udp-ds-stage",
     "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/fact_flight_wap_availability_new_definition/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
     "prefix": "data/opex/KANDU_files/",
     "sufix": ""
   },
@@ -204,6 +211,20 @@
     "type": "s3",
     "bucket": "gogo-udp-ds-stage",
     "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/satcom_decile_tail/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/satcom_decile_grid/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
     "prefix": "data/opex/messages_logs/",
     "sufix": ""
   },
@@ -211,14 +232,49 @@
     "type": "s3",
     "bucket": "gogo-udp-ds-stage",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "data/opex/parsed_devices/",
+    "prefix": "data/opex/abs_device_info/",
     "sufix": ""
   },
   {
     "type": "s3",
     "bucket": "gogo-udp-ds-stage",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "data/opex/abs_device_info/",
+    "prefix": "data/opex/abs_device_info_with_duplication/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/satcom/antenna_gmm_features/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/satcom/antenna_regression_features/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/satcom/antenna_gmm_output/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/satcom/antenna_regression_output/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-maslo-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "RDP/FACT_DRC_MESSAGES_DAILY/",
     "sufix": ""
   }
   ]
