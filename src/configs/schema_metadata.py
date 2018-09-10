@@ -71,12 +71,13 @@ TABLES = {
               'abs_device_info_with_duplication'
               ],
 
-     'satcom': [
-         'antenna_gmm_features',
-         'antenna_gmm_output',
-         'antenna_regression_features',
-         'antenna_regression_output'
-        ]
+     'satcom': ['antenna_gmm_features',
+                'antenna_gmm_output',
+                'antenna_regression_features',
+                'antenna_regression_output'
+                ],
+
+     'abs': ['canonical_abs']
 }
 # Value: List of tables
 

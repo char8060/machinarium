@@ -200,6 +200,8 @@ def get_partition(object_path, table, partitions_dict):
     for element in partitions_from_event_object:
         partition += '/' + element
 
+    partition = partition[1:]
+
     # Inconsistency
     if partition not in object_path:
         warning = "Structure is broken. " \
@@ -209,10 +211,10 @@ def get_partition(object_path, table, partitions_dict):
         raise Exception(warning)
 
     # Remove '/' on the beginning and return partition part of the path
-    return partition[1:]
+    return partition
 
 
-def get_metadata(object_path, schemas_list, tables_dict, partitions_dict):
+def get_metadata(object_path, schemas_list, tables_dict, partitions_dict, source=None):
     """
     Returns parsed metadata from object_path.
 
@@ -223,7 +225,7 @@ def get_metadata(object_path, schemas_list, tables_dict, partitions_dict):
     :return: schema, table, path, file, partition. Type = String (for all values)
     """
     file = get_file(object_path)
-    if "gogo-udp-canonical-logs-" in object_path:
+    if source == 'canonical':
         schema = "abs"
         table = "canonical_abs"
         partition = get_partition(object_path, (schema + '.' + table).lower(), partitions_dict)
@@ -273,7 +275,12 @@ def lambda_handler(event, context):
     object_path = urllib.unquote_plus(event['Records'][0]['s3']['object']['key'].encode('utf8'))
     logger.info("S3 object: {}".format(object_path))
 
-    schema, table, path, file, partition = get_metadata(object_path, SCHEMAS, TABLES, PARTITIONS)
+    if 'gogo-udp-canonical-logs-' in bucket:
+        source = 'canonical'
+    else:
+        source = None
+
+    schema, table, path, file, partition = get_metadata(object_path, SCHEMAS, TABLES, PARTITIONS, source)
 
     table = "{schema}.{table}".format(schema=schema.lower(), table=table.lower())
 
