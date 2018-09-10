@@ -231,8 +231,8 @@ def get_metadata(object_path, schemas_list, tables_dict, partitions_dict):
         # Inconsistency
         check_consistency = "{partition}/{file}".format(table=table, partition=partition, file=file)
         if check_consistency not in object_path:
-            warning = "There is no {cosist} in {s3_event_object}".format(cosist=check_consistency,
-                                                                         s3_event_object=object_path)
+            warning = "There is no {consist} in {s3_event_object}".format(consist=check_consistency,
+                                                                          s3_event_object=object_path)
             logger.warning(warning)
 
     else:
