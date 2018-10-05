@@ -270,6 +270,13 @@
     "prefix": "data/satcom/antenna_regression_output/",
     "sufix": ""
   },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/satcom/kandu_files/",
+    "sufix": ""
+  },
     {
     "type": "s3",
     "bucket": "gogo-udp-ds-prod",
