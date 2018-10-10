@@ -21,6 +21,7 @@ TABLES = {
 
      'XDW': ['DIM_AIRCRAFT',
              'DIM_FLIGHT',
+             'DIM_FLIGHT_PERIODIC',
              'DIM_MEDIA_USAGE_FLT_KEY',
              'FACT_MEDIA_USAGE',
              'FACT_USAGE'],
@@ -153,6 +154,7 @@ PARTITIONS = {
 
      'xdw.dim_aircraft': [],
      'xdw.dim_flight': ['year', 'month'],
+     'xdw.dim_flight_periodic': ['partner_airline_code_icao', 'year', 'month'],
      'xdw.fact_media_usage': ["partition_date"],
      'xdw.dim_media_usage_flt_key': ["partition_date"],
      'xdw.fact_usage':["partition_date"],
