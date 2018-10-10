@@ -69,7 +69,10 @@ TABLES = {
               'satcom_decile_grid',
 
               'abs_device_info',
-              'abs_device_info_with_duplication'
+              'abs_device_info_with_duplication',
+
+              'dim_flight',
+              'dim_flight_periodic'
               ],
 
      'satcom': ['antenna_gmm_features',
@@ -120,6 +123,9 @@ PARTITIONS = {
 
      'opex.messages_logs': ["partition_date"],
      'opex.messages_logs_p2': ["partition_date"],
+
+     'opex.dim_fligth': ["partition_date"],
+     'opex.dim_fligth_periodic': ["partition_date"],
 
      'opex.kandu_files': ["partition_date"],
      'opex.kandu_files_minute_p2': ["partition_date"],
