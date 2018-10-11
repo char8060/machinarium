@@ -124,8 +124,8 @@ PARTITIONS = {
      'opex.messages_logs': ["partition_date"],
      'opex.messages_logs_p2': ["partition_date"],
 
-     'opex.dim_fligth': ["partition_date"],
-     'opex.dim_fligth_periodic': ["partition_date"],
+     'opex.dim_flight': ["partition_date"],
+     'opex.dim_flight_periodic': ["partition_date"],
 
      'opex.kandu_files': ["partition_date"],
      'opex.kandu_files_minute_p2': ["partition_date"],
