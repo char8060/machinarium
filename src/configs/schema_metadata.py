@@ -80,7 +80,7 @@ TABLES = {
                 'antenna_regression_features',
                 'antenna_regression_output',
                 'kandu_files',
-                'kandu_files_minute_p2'
+                'kandu_files_minute'
                 ],
 
      'abs': ['canonical_abs']
