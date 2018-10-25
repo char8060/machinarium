@@ -142,7 +142,7 @@ PARTITIONS = {
      'satcom.antenna_regression_features': ["partition_date"],
      'satcom.antenna_regression_output': ["partition_date"],
      'satcom.kandu_files': ["partition_date"],
-     'satcom.kandu_files_minute_p2': ["partition_date"],
+     'satcom.kandu_files_minute': ["partition_date"],
 
      'rdp.fact_flight_availability': ["partition_date", "flight_source"],
      'rdp.fact_flight_segment': ["partition_date", "flight_source"],
