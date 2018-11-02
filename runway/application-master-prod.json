@@ -311,6 +311,13 @@
     "events": ["s3:ObjectCreated:*"],
     "prefix": "data/satcom/kandu_files_audit/",
     "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/satcom/antenna_flight_features/",
+    "sufix": ""
   }
   ]
 }
