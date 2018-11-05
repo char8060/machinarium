@@ -75,7 +75,8 @@ TABLES = {
               'dim_flight_periodic'
               ],
 
-     'satcom': ['antenna_gmm_features',
+     'satcom': ['antenna_current_spikes',
+                'antenna_gmm_features',
                 'antenna_gmm_output',
                 'antenna_regression_features',
                 'antenna_regression_output',
@@ -139,6 +140,7 @@ PARTITIONS = {
      'opex.abs_device_info': ["source", "partition_date"],
      'opex.abs_device_info_with_duplication': ["source", "partition_date"],
 
+     'satcom.antenna_current_spikes': ["partition_date"],
      'satcom.antenna_gmm_features': ["partition_date"],
      'satcom.antenna_gmm_output': ["partition_date"],
      'satcom.antenna_regression_features': ["partition_date"],
