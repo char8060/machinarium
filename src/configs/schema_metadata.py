@@ -83,6 +83,7 @@ TABLES = {
                 'kandu_files',
                 'kandu_files_audit',
                 'kandu_files_minute',
+                'kandu_logs',
                 'antenna_flight_features'
                 ],
 
@@ -146,6 +147,7 @@ PARTITIONS = {
      'satcom.antenna_regression_features': ["partition_date"],
      'satcom.antenna_regression_output': ["partition_date"],
      'satcom.kandu_files': ["partition_date"],
+     'satcom.kandu_logs': ["partition_date"],
      'satcom.kandu_files_minute': ["partition_date"],
      'satcom.kandu_files_audit': ["partition_date"],
      'satcom.antenna_flight_features': ["partition_date"],
