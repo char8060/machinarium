@@ -325,6 +325,13 @@
     "events": ["s3:ObjectCreated:*"],
     "prefix": "data/satcom/antenna_current_spikes/",
     "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-kandu-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "satcom/kandu_kogs/",
+    "sufix": ""
   }
   ]
 }

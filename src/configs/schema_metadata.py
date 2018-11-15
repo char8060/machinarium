@@ -171,7 +171,7 @@ PARTITIONS = {
      'xdw.dim_flight_periodic': ['partner_airline_code_icao', 'year', 'month'],
      'xdw.fact_media_usage': ["partition_date"],
      'xdw.dim_media_usage_flt_key': ["partition_date"],
-     'xdw.fact_usage':["partition_date"],
+     'xdw.fact_usage': ["partition_date"],
 
      # schema and table values are hardcoded in code
      'abs.canonical_abs': ["partition_date", "source"]
