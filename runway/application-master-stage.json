@@ -276,6 +276,41 @@
     "events": ["s3:ObjectCreated:*"],
     "prefix": "RDP/FACT_DRC_MESSAGES_DAILY/",
     "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "sm/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "wap_meta/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "acwap_assoc/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "acwap_bss/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "acwap_client/",
+    "sufix": ""
   }
   ]
 }
