@@ -145,7 +145,7 @@ def get_table(object_path, schema, tables_dict):
     table = None
     schema_tables = tables_dict[schema]
     for element in schema_tables:
-        if "/{}/".format(element) in object_path:
+        if ("/{}/".format(element) in object_path) or (object_path.startswith(element + "/")):
             table = element
             # We assume there is only one table name
             break
@@ -232,10 +232,14 @@ def get_metadata(object_path, schemas_list, tables_dict, partitions_dict, source
 
         # Inconsistency
         check_consistency = "{partition}/{file}".format(table=table, partition=partition, file=file)
-        if check_consistency not in object_path:
-            warning = "There is no {consist} in {s3_event_object}".format(consist=check_consistency,
-                                                                          s3_event_object=object_path)
-            logger.warning(warning)
+
+    elif source == 'wap':
+        schema = "wap"
+        table = get_table(object_path, schema, tables_dict)
+        partition = get_partition(object_path, (schema + '.' + table).lower(), partitions_dict)
+
+        # Inconsistency
+        check_consistency = "{table}/{partition}/{file}".format(table=table, partition=partition, file=file)
 
     else:
         schema = get_schema(object_path, schemas_list)
@@ -244,11 +248,12 @@ def get_metadata(object_path, schemas_list, tables_dict, partitions_dict, source
 
         # Inconsistency
         check_consistency = "{table}/{partition}/{file}". format(table=table, partition=partition, file=file)
-        if check_consistency not in object_path:
-            warning = "There is no {consist} in {object_path}".format(consist=check_consistency,
-                                                                      object_path=object_path)
-            logger.warning(warning)
-            raise Exception(warning)
+
+    if check_consistency not in object_path:
+        warning = "There is no {consist} in {object_path}".format(consist=check_consistency,
+                                                                  object_path=object_path)
+        logger.warning(warning)
+        raise Exception(warning)
 
     path = split(object_path)[0]
     return schema, table, path, file, partition
@@ -277,6 +282,8 @@ def lambda_handler(event, context):
 
     if 'gogo-udp-canonical-logs-' in bucket:
         source = 'canonical'
+    elif 'gogo-udp-ds-wap-' in bucket:
+            source = 'wap'
     else:
         source = None
 
