@@ -367,6 +367,13 @@
     "events": ["s3:ObjectCreated:*"],
     "prefix": "acwap_client/",
     "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/satcom/outages_summary/",
+    "sufix": ""
   }
   ]
 }

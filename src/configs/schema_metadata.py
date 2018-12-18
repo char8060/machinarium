@@ -84,7 +84,8 @@ TABLES = {
                'kandu_files_audit',
                'kandu_files_minute',
                'kandu_logs',
-               'antenna_flight_features'
+               'antenna_flight_features',
+               'outages_summary'
                ],
 
     'wap': ['sm',
@@ -183,6 +184,7 @@ PARTITIONS = {
     'satcom.kandu_files_minute': ["partition_date"],
     'satcom.kandu_files_audit': ["partition_date"],
     'satcom.antenna_flight_features': ["partition_date"],
+    'satcom.outages_summary': ["partition_date"],
 
     'wap.sm': ["partition_date"],
     'wap.wap_meta': ["partition_date"],
