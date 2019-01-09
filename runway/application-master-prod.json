@@ -328,13 +328,6 @@
   },
   {
     "type": "s3",
-    "bucket": "gogo-udp-kandu-prod",
-    "events": ["s3:ObjectCreated:*"],
-    "prefix": "satcom/kandu_kogs/",
-    "sufix": ""
-  },
-  {
-    "type": "s3",
     "bucket": "gogo-udp-ds-wap-prod",
     "events": ["s3:ObjectCreated:*"],
     "prefix": "sm/",
