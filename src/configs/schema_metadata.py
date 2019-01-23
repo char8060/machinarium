@@ -88,11 +88,9 @@ TABLES = {
                'outages_summary'
                ],
 
-    'wap': ['sm',
-            'wap_meta',
-            'acwap_assoc',
-            'acwap_bss',
-            'acwap_client'
+    'wap': ['wap_meta',
+            'type_4_json',
+            'type_5_json'
             ],
 
     'XDW': ['DIM_AIRCRAFT',
@@ -186,11 +184,9 @@ PARTITIONS = {
     'satcom.antenna_flight_features': ["partition_date"],
     'satcom.outages_summary': ["partition_date"],
 
-    'wap.sm': ["partition_date"],
     'wap.wap_meta': ["partition_date"],
-    'wap.acwap_assoc': ["partition_date"],
-    'wap.acwap_bss': ["partition_date"],
-    'wap.acwap_client': ["partition_date"],
+    'wap.type_4_json': ["partition_date"],
+    'wap.type_5_json': ["partition_date"],
 
     'xdw.dim_aircraft': [],
     'xdw.dim_flight': ['year', 'month'],
