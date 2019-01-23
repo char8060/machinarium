@@ -330,13 +330,6 @@
     "type": "s3",
     "bucket": "gogo-udp-ds-wap-prod",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "sm/",
-    "sufix": ""
-  },
-  {
-    "type": "s3",
-    "bucket": "gogo-udp-ds-wap-prod",
-    "events": ["s3:ObjectCreated:*"],
     "prefix": "wap_meta/",
     "sufix": ""
   },
@@ -344,21 +337,14 @@
     "type": "s3",
     "bucket": "gogo-udp-ds-wap-prod",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "acwap_assoc/",
+    "prefix": "type_4_json/",
     "sufix": ""
   },
   {
     "type": "s3",
     "bucket": "gogo-udp-ds-wap-prod",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "acwap_bss/",
-    "sufix": ""
-  },
-  {
-    "type": "s3",
-    "bucket": "gogo-udp-ds-wap-prod",
-    "events": ["s3:ObjectCreated:*"],
-    "prefix": "acwap_client/",
+    "prefix": "type_5_json/",
     "sufix": ""
   },
   {
