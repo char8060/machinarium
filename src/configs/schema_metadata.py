@@ -89,6 +89,9 @@ TABLES = {
                ],
 
     'wap': ['wap_meta',
+            'type_1_json',
+            'type_2_json',
+            'type_3_json',
             'type_4_json',
             'type_5_json'
             ],
@@ -185,6 +188,9 @@ PARTITIONS = {
     'satcom.outages_summary': ["partition_date"],
 
     'wap.wap_meta': ["partition_date"],
+    'wap.type_1_json': ["partition_date"],
+    'wap.type_2_json': ["partition_date"],
+    'wap.type_3_json': ["partition_date"],
     'wap.type_4_json': ["partition_date"],
     'wap.type_5_json': ["partition_date"],
 
