@@ -330,13 +330,6 @@
     "type": "s3",
     "bucket": "gogo-udp-ds-wap-prod",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "sm/",
-    "sufix": ""
-  },
-  {
-    "type": "s3",
-    "bucket": "gogo-udp-ds-wap-prod",
-    "events": ["s3:ObjectCreated:*"],
     "prefix": "wap_meta/",
     "sufix": ""
   },
@@ -344,21 +337,35 @@
     "type": "s3",
     "bucket": "gogo-udp-ds-wap-prod",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "acwap_assoc/",
+    "prefix": "type_1_json/",
     "sufix": ""
   },
   {
     "type": "s3",
     "bucket": "gogo-udp-ds-wap-prod",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "acwap_bss/",
+    "prefix": "type_2_json/",
     "sufix": ""
   },
   {
     "type": "s3",
     "bucket": "gogo-udp-ds-wap-prod",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "acwap_client/",
+    "prefix": "type_3_json/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_4_json/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_5_json/",
     "sufix": ""
   },
   {
