@@ -149,6 +149,7 @@ PARTITIONS = {
 
     'opex.dim_flight': ["partition_date"],
     'opex.dim_flight_periodic': ["partition_date"],
+    'opex.dim_flight_matched': ["partition_date"],
 
     'opex.kandu_files': ["partition_date"],
     'opex.kandu_files_minute_p2': ["partition_date"],
