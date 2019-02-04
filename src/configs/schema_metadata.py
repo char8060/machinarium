@@ -54,6 +54,7 @@ TABLES = {
              'abs_device_info_with_duplication',
 
              'dim_flight',
+             'dim_flight_matched',
              'dim_flight_periodic'
              ],
 
