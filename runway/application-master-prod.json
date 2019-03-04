@@ -386,7 +386,7 @@
     "type": "s3",
     "bucket": "gogo-udp-ds-prod",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "data/opex/console_acpu_diagnostic_messages/",
+    "prefix": "data/ds/console_acpu_diagnostic_messages/",
     "sufix": ""
   }
   ]
