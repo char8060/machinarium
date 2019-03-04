@@ -57,6 +57,9 @@ TABLES = {
              'dim_flight_matched',
              'dim_flight_periodic'
              ],
+    'ds': [
+             'console_acpu_diagnostic_messages'
+            ],
 
     'RDP': ['fact_flight_availability',
             'fact_flight_segment',
@@ -113,6 +116,8 @@ TABLES = {
 PARTITIONS = {
     # schema and table values are hardcoded in codexX
     'abs.canonical_abs': ["partition_date", "source"],
+
+    'ds.console_acpu_diagnostic_messages': ["partition_date", "source"],
 
     'opex.type_1_logs': ["partition_date"],
     'opex.type_2_logs': ["partition_date"],

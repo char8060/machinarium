@@ -381,6 +381,13 @@
     "events": ["s3:ObjectCreated:*"],
     "prefix": "data/opex/dim_flight_matched/",
     "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/console_acpu_diagnostic_messages/",
+    "sufix": ""
   }
   ]
 }
