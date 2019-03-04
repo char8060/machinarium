@@ -1,5 +1,5 @@
 # Name of schema on S3, that's why name is case sensitive
-SCHEMAS = ['RDP', 'XDW', 'opex', 'satcom', 'abs', 'wap']
+SCHEMAS = ['RDP', 'XDW', 'opex', 'satcom', 'abs', 'wap', 'ds']
 
 # Dictionary of tables
 # Key: Schema
