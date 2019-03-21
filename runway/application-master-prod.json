@@ -388,6 +388,13 @@
     "events": ["s3:ObjectCreated:*"],
     "prefix": "data/ds/console_acpu_diagnostic_messages/",
     "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/satcom/antenna_freezing_profiles/",
+    "sufix": ""
   }
   ]
 }
