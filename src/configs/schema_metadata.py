@@ -93,12 +93,25 @@ TABLES = {
                'antenna_freezing_profiles'
                ],
 
-    'wap': ['wap_meta',
-            'type_1_json',
+    'wap': ['type_1_json',
             'type_2_json',
             'type_3_json',
             'type_4_json',
-            'type_5_json'
+            'type_5_json',
+
+            'type_1_client',
+            'type_2_client',
+            'type_3_client',
+            'type_4_client',
+            'type_5_client',
+
+            'type_1_summary',
+            'type_2_summary',
+            'type_3_summary',
+            'type_4_summary',
+            'type_5_summary',
+
+            'fact_radio_daily'
             ],
 
     'XDW': ['DIM_AIRCRAFT',
@@ -196,12 +209,22 @@ PARTITIONS = {
     'satcom.outages_summary': ["partition_date"],
     'satcom.antenna_freezing_profiles': ["partition_date"],
 
-    'wap.wap_meta': ["partition_date"],
     'wap.type_1_json': ["partition_date"],
     'wap.type_2_json': ["partition_date"],
     'wap.type_3_json': ["partition_date"],
     'wap.type_4_json': ["partition_date"],
     'wap.type_5_json': ["partition_date"],
+    'wap.type_1_client': ["partition_date"],
+    'wap.type_2_client': ["partition_date"],
+    'wap.type_3_client': ["partition_date"],
+    'wap.type_4_client': ["partition_date"],
+    'wap.type_5_client': ["partition_date"],
+    'wap.type_1_summary': ["partition_date"],
+    'wap.type_2_summary': ["partition_date"],
+    'wap.type_3_summary': ["partition_date"],
+    'wap.type_4_summary': ["partition_date"],
+    'wap.type_5_summary': ["partition_date"],
+    'wap.fact_radio_daily': ["partition_date"],
 
     'xdw.dim_aircraft': [],
     'xdw.dim_flight': ['year', 'month'],
