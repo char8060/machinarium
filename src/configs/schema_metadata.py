@@ -43,6 +43,9 @@ TABLES = {
              'messages_logs',
              'messages_logs_p2',
 
+             'nps',
+             'nps_raw',
+
              'KANDU_files',
              'KANDU_files_minute_p2',
 
@@ -150,6 +153,9 @@ PARTITIONS = {
 
     'opex.fact_flight_wap_availability': ["partition_date"],
     'opex.fact_flight_wap_availability_new_definition': ["partition_date"],
+
+    'opex.nps': ["partition_date"],
+    'opex.nps_raw': ["partition_date"],
 
     'opex.messages_logs': ["partition_date"],
     'opex.messages_logs_p2': ["partition_date"],
