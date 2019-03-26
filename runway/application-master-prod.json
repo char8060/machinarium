@@ -337,6 +337,76 @@
     "type": "s3",
     "bucket": "gogo-udp-ds-wap-prod",
     "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_1_summary/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_2_summary/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_3_summary/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_4_summary/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_5_summary/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_1_client/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_2_client/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_3_client/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_4_client/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_5_client/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-prod",
+    "events": ["s3:ObjectCreated:*"],
     "prefix": "type_1_json/",
     "sufix": ""
   },
@@ -393,14 +463,14 @@
     "type": "s3",
     "bucket": "gogo-udp-ds-prod",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "data/opex/nps/",
+    "prefix": "data/satcom/antenna_freezing_profiles/",
     "sufix": ""
   },
   {
     "type": "s3",
-    "bucket": "gogo-udp-ds-prod",
+    "bucket": "gogo-udp-ds-wap-prod",
     "events": ["s3:ObjectCreated:*"],
-    "prefix": "data/opex/nps_raw/",
+    "prefix": "fact_radio_daily/",
     "sufix": ""
   }
   ]
