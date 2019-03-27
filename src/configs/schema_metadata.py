@@ -93,7 +93,8 @@ TABLES = {
                'kandu_logs',
                'antenna_flight_features',
                'outages_summary',
-               'antenna_freezing_profiles'
+               'antenna_freezing_profiles',
+               'antenna_freezing',
                ],
 
     'wap': ['type_1_json',
@@ -214,6 +215,7 @@ PARTITIONS = {
     'satcom.antenna_flight_features': ["partition_date"],
     'satcom.outages_summary': ["partition_date"],
     'satcom.antenna_freezing_profiles': ["partition_date"],
+    'satcom.antenna_freezing': ["partition_date"],
 
     'wap.type_1_json': ["partition_date"],
     'wap.type_2_json': ["partition_date"],
