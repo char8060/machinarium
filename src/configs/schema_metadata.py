@@ -8,46 +8,10 @@ TABLES = {
     # schema and table values are hardcoded in codexX
     'abs': ['canonical_abs'],
 
-    'opex': ['type_1_logs',
-             'type_2_logs',
-             'type_4_logs',
-
-             'type_1_header_flatten',
-             'type_2_header_flatten',
-             'type_3_header_flatten',
-             'type_4_header_flatten',
-
-             'type_1_client_flatten',
-             'type_2_client_flatten',
-             'type_3_client_flatten',
-             'type_4_client_flatten',
-
-             'type_1_header_w_dom_pos',
-             'type_2_header_w_dom_pos',
-             'type_3_header_w_dom_pos',
-             'type_4_header_w_dom_pos',
-
-             'type_1_header_clean',
-             'type_2_header_clean',
-             'type_3_header_clean',
-             'type_4_header_clean',
-
-             'type_1_client_clean',
-             'type_2_client_clean',
-             'type_3_client_clean',
-             'type_4_client_clean',
-
-             'fact_flight_wap_availability',
-             'fact_flight_wap_availability_new_definition',
-
-             'messages_logs',
-             'messages_logs_p2',
+    'opex': ['messages_logs',
 
              'nps',
              'nps_raw',
-
-             'KANDU_files',
-             'KANDU_files_minute_p2',
 
              'satcom_decile',
              'satcom_decile_tail',
@@ -69,15 +33,6 @@ TABLES = {
 
             'SM_2KU_RECORD_LOGS',
             'SM_KU_RECORD_LOGS',
-
-            'WAP_TYPE_1_SUMMARY',
-            'WAP_TYPE_2_SUMMARY',
-            'WAP_TYPE_3_SUMMARY',
-            'WAP_TYPE_4_SUMMARY',
-            'WAP_TYPE_1_CLIENT',
-            'WAP_TYPE_2_CLIENT',
-            'WAP_TYPE_3_CLIENT',
-            'WAP_TYPE_4_CLIENT',
 
             'FACT_DRC_MESSAGES_DAILY'
             ],
@@ -103,6 +58,12 @@ TABLES = {
             'type_4_json',
             'type_5_json',
 
+            'type_1_flatten',
+            'type_2_flatten',
+            'type_3_flatten',
+            'type_4_flatten',
+            'type_5_flatten',
+
             'type_1_client',
             'type_2_client',
             'type_3_client',
@@ -115,7 +76,8 @@ TABLES = {
             'type_4_summary',
             'type_5_summary',
 
-            'fact_radio_daily'
+            'fact_radio_daily',
+            'fact_flight_client_mac'
             ],
 
     'XDW': ['DIM_AIRCRAFT',
@@ -137,50 +99,14 @@ PARTITIONS = {
 
     'ds.console_acpu_diagnostic_messages': ["partition_date", "source"],
 
-    'opex.type_1_logs': ["partition_date"],
-    'opex.type_2_logs': ["partition_date"],
-    'opex.type_4_logs': ["partition_date"],
-
-    'opex.type_1_header_flatten': ["partition_date"],
-    'opex.type_2_header_flatten': ["partition_date"],
-    'opex.type_3_header_flatten': ["partition_date"],
-    'opex.type_4_header_flatten': ["partition_date"],
-
-    'opex.type_1_client_flatten': ["partition_date"],
-    'opex.type_2_client_flatten': ["partition_date"],
-    'opex.type_3_client_flatten': ["partition_date"],
-    'opex.type_4_client_flatten': ["partition_date"],
-
-    'opex.type_1_header_w_dom_pos': ["partition_date"],
-    'opex.type_2_header_w_dom_pos': ["partition_date"],
-    'opex.type_3_header_w_dom_pos': ["partition_date"],
-    'opex.type_4_header_w_dom_pos': ["partition_date"],
-
-    'opex.type_1_header_clean': ["partition_date"],
-    'opex.type_2_header_clean': ["partition_date"],
-    'opex.type_3_header_clean': ["partition_date"],
-    'opex.type_4_header_clean': ["partition_date"],
-
-    'opex.type_1_client_clean': ["partition_date"],
-    'opex.type_2_client_clean': ["partition_date"],
-    'opex.type_3_client_clean': ["partition_date"],
-    'opex.type_4_client_clean': ["partition_date"],
-
-    'opex.fact_flight_wap_availability': ["partition_date"],
-    'opex.fact_flight_wap_availability_new_definition': ["partition_date"],
-
     'opex.nps': ["partition_date"],
     'opex.nps_raw': ["partition_date"],
 
     'opex.messages_logs': ["partition_date"],
-    'opex.messages_logs_p2': ["partition_date"],
 
     'opex.dim_flight': ["partition_date"],
     'opex.dim_flight_periodic': ["partition_date"],
     'opex.dim_flight_matched': ["partition_date"],
-
-    'opex.kandu_files': ["partition_date"],
-    'opex.kandu_files_minute_p2': ["partition_date"],
 
     'opex.satcom_decile': ["source", "partition_date"],
     'opex.satcom_decile_tail': ["source", "partition_date"],
@@ -193,14 +119,6 @@ PARTITIONS = {
     'rdp.fact_flight_segment': ["partition_date", "flight_source"],
     'rdp.sm_2ku_record_logs': ["partition_date"],
     'rdp.sm_ku_record_logs': ["partition_date"],
-    'rdp.wap_type_1_summary': ["partition_date"],
-    'rdp.wap_type_2_summary': ["partition_date"],
-    'rdp.wap_type_3_summary': ["partition_date"],
-    'rdp.wap_type_4_summary': ["partition_date"],
-    'rdp.wap_type_1_client': ["partition_date"],
-    'rdp.wap_type_2_client': ["partition_date"],
-    'rdp.wap_type_3_client': ["partition_date"],
-    'rdp.wap_type_4_client': ["partition_date"],
     'rdp.fact_drc_messages_daily': ["partition_date"],
 
     'satcom.antenna_current_spikes': ["partition_date"],
@@ -222,6 +140,11 @@ PARTITIONS = {
     'wap.type_3_json': ["partition_date"],
     'wap.type_4_json': ["partition_date"],
     'wap.type_5_json': ["partition_date"],
+    'wap.type_1_flatten': ["partition_date"],
+    'wap.type_2_flatten': ["partition_date"],
+    'wap.type_3_flatten': ["partition_date"],
+    'wap.type_4_flatten': ["partition_date"],
+    'wap.type_5_flatten': ["partition_date"],
     'wap.type_1_client': ["partition_date"],
     'wap.type_2_client': ["partition_date"],
     'wap.type_3_client': ["partition_date"],
@@ -233,6 +156,7 @@ PARTITIONS = {
     'wap.type_4_summary': ["partition_date"],
     'wap.type_5_summary': ["partition_date"],
     'wap.fact_radio_daily': ["partition_date"],
+    'wap.fact_flight_client_mac': ["partition_date"],
 
     'xdw.dim_aircraft': [],
     'xdw.dim_flight': ['year', 'month'],
