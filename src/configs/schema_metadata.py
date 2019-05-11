@@ -1,5 +1,5 @@
 # Name of schema on S3, that's why name is case sensitive
-SCHEMAS = ['RDP', 'XDW', 'opex', 'satcom', 'abs', 'wap', 'ds']
+SCHEMAS = ['RDP', 'XDW', 'opex', 'satcom', 'abs', 'wap', 'ds', 'sla']
 
 # Dictionary of tables
 # Key: Schema
@@ -25,8 +25,8 @@ TABLES = {
              'dim_flight_periodic'
              ],
     'ds': [
-             'console_acpu_diagnostic_messages'
-            ],
+        'console_acpu_diagnostic_messages'
+    ],
 
     'RDP': ['fact_flight_availability',
             'fact_flight_segment',
@@ -51,6 +51,8 @@ TABLES = {
                'antenna_freezing_profiles',
                'antenna_freezing',
                ],
+
+    'sla': ['FACT_FLIGHT_AVAILABILITY_AGG'],
 
     'wap': ['type_1_json',
             'type_2_json',
@@ -88,7 +90,6 @@ TABLES = {
             'FACT_USAGE'
             ]
 }
-
 
 # Valid partitions for each table
 # Key: table name ( schema + table)
@@ -134,6 +135,8 @@ PARTITIONS = {
     'satcom.outages_summary': ["partition_date"],
     'satcom.antenna_freezing_profiles': ["partition_date"],
     'satcom.antenna_freezing': ["partition_date"],
+
+    'sla.fact_flight_availability_agg': ["partition_date", "flight_source"],
 
     'wap.type_1_json': ["partition_date"],
     'wap.type_2_json': ["partition_date"],
