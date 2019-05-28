@@ -37,6 +37,9 @@ TABLES = {
              'type_3_client_clean',
              'type_4_client_clean',
 
+             'weather_daily',
+             'weather_hourly',
+
              'fact_flight_wap_availability',
              'fact_flight_wap_availability_new_definition',
 
@@ -135,6 +138,9 @@ PARTITIONS = {
     'abs.canonical_abs': ["partition_date", "source"],
 
     'ds.console_acpu_diagnostic_messages': ["partition_date", "source"],
+
+    'opex.weather_daily': ["partition_date"],
+    'opex.weather_hourly': ["partition_date"],
 
     'opex.type_1_logs': ["partition_date"],
     'opex.type_2_logs': ["partition_date"],
