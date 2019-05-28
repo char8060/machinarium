@@ -6,7 +6,6 @@ import pymysql
 from importlib import import_module
 from configs.schema_metadata import SCHEMAS, TABLES, PARTITIONS
 
-
 # DevOps configs data
 ACCOUNTS = {
     '623692085147': 'sandbox',
@@ -71,11 +70,11 @@ def insert_into_updates(connection, table, path, file, partition, time):
                 `event_time` = '{event_time}',
                 `updated_on` =  UTC_TIMESTAMP();
             '''.format(
-                table_name=table,
-                file_path=path,
-                file_name=file,
-                partition=partition,
-                event_time=time.strftime("%Y-%m-%d %H:%M:%S"))
+        table_name=table,
+        file_path=path,
+        file_name=file,
+        partition=partition,
+        event_time=time.strftime("%Y-%m-%d %H:%M:%S"))
 
     with connection.cursor() as cur:
         cur.execute(query)
@@ -187,7 +186,6 @@ def get_partition(object_path, table, partitions_dict):
     symmetric_set_difference = set(partitions_check_list).symmetric_difference(set(table_partitions))
     if ((len(partitions_check_list) != len(table_partitions)) |
             (len(symmetric_set_difference) != 0)):
-
         warning = "{event} doesn't match with configs structure. " \
                   "For {table} the next partitions are expected: {p1} " \
                   "Gotten partitions: {p2}".format(event=object_path,
@@ -241,13 +239,21 @@ def get_metadata(object_path, schemas_list, tables_dict, partitions_dict, source
         # Inconsistency
         check_consistency = "{table}/{partition}/{file}".format(table=table, partition=partition, file=file)
 
+    elif source == 'sla':
+        schema = "sla"
+        table = get_table(object_path, schema, tables_dict)
+        partition = get_partition(object_path, (schema + '.' + table).lower(), partitions_dict)
+
+        # Inconsistency
+        check_consistency = "{table}/{partition}/{file}".format(table=table, partition=partition, file=file)
+
     else:
         schema = get_schema(object_path, schemas_list)
         table = get_table(object_path, schema, tables_dict)
         partition = get_partition(object_path, (schema + '.' + table).lower(), partitions_dict)
 
         # Inconsistency
-        check_consistency = "{table}/{partition}/{file}". format(table=table, partition=partition, file=file)
+        check_consistency = "{table}/{partition}/{file}".format(table=table, partition=partition, file=file)
 
     if check_consistency not in object_path:
         warning = "There is no {consist} in {object_path}".format(consist=check_consistency,
@@ -283,7 +289,9 @@ def lambda_handler(event, context):
     if 'gogo-udp-canonical-logs-' in bucket:
         source = 'canonical'
     elif 'gogo-udp-ds-wap-' in bucket:
-            source = 'wap'
+        source = 'wap'
+    elif 'gogo-udp-sla-' in bucket:
+        source = 'sla'
     else:
         source = None
 

@@ -1,5 +1,5 @@
 # Name of schema on S3, that's why name is case sensitive
-SCHEMAS = ['RDP', 'XDW', 'opex', 'satcom', 'abs', 'wap', 'ds']
+SCHEMAS = ['RDP', 'XDW', 'opex', 'satcom', 'abs', 'wap', 'ds', 'sla']
 
 # Dictionary of tables
 # Key: Schema
@@ -49,9 +49,6 @@ TABLES = {
              'nps',
              'nps_raw',
 
-             'KANDU_files',
-             'KANDU_files_minute_p2',
-
              'satcom_decile',
              'satcom_decile_tail',
              'satcom_decile_grid',
@@ -64,23 +61,14 @@ TABLES = {
              'dim_flight_periodic'
              ],
     'ds': [
-             'console_acpu_diagnostic_messages'
-            ],
+        'console_acpu_diagnostic_messages'
+    ],
 
     'RDP': ['fact_flight_availability',
             'fact_flight_segment',
 
             'SM_2KU_RECORD_LOGS',
             'SM_KU_RECORD_LOGS',
-
-            'WAP_TYPE_1_SUMMARY',
-            'WAP_TYPE_2_SUMMARY',
-            'WAP_TYPE_3_SUMMARY',
-            'WAP_TYPE_4_SUMMARY',
-            'WAP_TYPE_1_CLIENT',
-            'WAP_TYPE_2_CLIENT',
-            'WAP_TYPE_3_CLIENT',
-            'WAP_TYPE_4_CLIENT',
 
             'FACT_DRC_MESSAGES_DAILY'
             ],
@@ -96,14 +84,23 @@ TABLES = {
                'kandu_logs',
                'antenna_flight_features',
                'outages_summary',
-               'antenna_freezing_profiles'
+               'antenna_freezing_profiles',
+               'antenna_freezing',
                ],
+
+    'sla': ['FACT_FLIGHT_AVAILABILITY_AGG'],
 
     'wap': ['type_1_json',
             'type_2_json',
             'type_3_json',
             'type_4_json',
             'type_5_json',
+
+            'type_1_flatten',
+            'type_2_flatten',
+            'type_3_flatten',
+            'type_4_flatten',
+            'type_5_flatten',
 
             'type_1_client',
             'type_2_client',
@@ -117,7 +114,8 @@ TABLES = {
             'type_4_summary',
             'type_5_summary',
 
-            'fact_radio_daily'
+            'fact_radio_daily',
+            'fact_flight_client_mac'
             ],
 
     'XDW': ['DIM_AIRCRAFT',
@@ -128,7 +126,6 @@ TABLES = {
             'FACT_USAGE'
             ]
 }
-
 
 # Valid partitions for each table
 # Key: table name ( schema + table)
@@ -178,14 +175,10 @@ PARTITIONS = {
     'opex.nps_raw': ["partition_date"],
 
     'opex.messages_logs': ["partition_date"],
-    'opex.messages_logs_p2': ["partition_date"],
 
     'opex.dim_flight': ["partition_date"],
     'opex.dim_flight_periodic': ["partition_date"],
     'opex.dim_flight_matched': ["partition_date"],
-
-    'opex.kandu_files': ["partition_date"],
-    'opex.kandu_files_minute_p2': ["partition_date"],
 
     'opex.satcom_decile': ["source", "partition_date"],
     'opex.satcom_decile_tail': ["source", "partition_date"],
@@ -198,14 +191,6 @@ PARTITIONS = {
     'rdp.fact_flight_segment': ["partition_date", "flight_source"],
     'rdp.sm_2ku_record_logs': ["partition_date"],
     'rdp.sm_ku_record_logs': ["partition_date"],
-    'rdp.wap_type_1_summary': ["partition_date"],
-    'rdp.wap_type_2_summary': ["partition_date"],
-    'rdp.wap_type_3_summary': ["partition_date"],
-    'rdp.wap_type_4_summary': ["partition_date"],
-    'rdp.wap_type_1_client': ["partition_date"],
-    'rdp.wap_type_2_client': ["partition_date"],
-    'rdp.wap_type_3_client': ["partition_date"],
-    'rdp.wap_type_4_client': ["partition_date"],
     'rdp.fact_drc_messages_daily': ["partition_date"],
 
     'satcom.antenna_current_spikes': ["partition_date"],
@@ -220,12 +205,20 @@ PARTITIONS = {
     'satcom.antenna_flight_features': ["partition_date"],
     'satcom.outages_summary': ["partition_date"],
     'satcom.antenna_freezing_profiles': ["partition_date"],
+    'satcom.antenna_freezing': ["partition_date"],
+
+    'sla.fact_flight_availability_agg': ["partition_date", "flight_source"],
 
     'wap.type_1_json': ["partition_date"],
     'wap.type_2_json': ["partition_date"],
     'wap.type_3_json': ["partition_date"],
     'wap.type_4_json': ["partition_date"],
     'wap.type_5_json': ["partition_date"],
+    'wap.type_1_flatten': ["partition_date"],
+    'wap.type_2_flatten': ["partition_date"],
+    'wap.type_3_flatten': ["partition_date"],
+    'wap.type_4_flatten': ["partition_date"],
+    'wap.type_5_flatten': ["partition_date"],
     'wap.type_1_client': ["partition_date"],
     'wap.type_2_client': ["partition_date"],
     'wap.type_3_client': ["partition_date"],
@@ -237,6 +230,7 @@ PARTITIONS = {
     'wap.type_4_summary': ["partition_date"],
     'wap.type_5_summary': ["partition_date"],
     'wap.fact_radio_daily': ["partition_date"],
+    'wap.fact_flight_client_mac': ["partition_date"],
 
     'xdw.dim_aircraft': [],
     'xdw.dim_flight': ['year', 'month'],
