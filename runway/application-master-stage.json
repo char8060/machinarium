@@ -272,11 +272,272 @@
   },
   {
     "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/satcom/kandu_files/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/satcom/kandu_files_minute/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
     "bucket": "gogo-udp-maslo-stage",
     "events": ["s3:ObjectCreated:*"],
     "prefix": "RDP/FACT_DRC_MESSAGES_DAILY/",
     "sufix": ""
   },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/dim_flight/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/dim_flight_periodic/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/satcom/kandu_files_audit/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/satcom/antenna_flight_features/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/satcom/antenna_current_spikes/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "fact_flight_client_mac/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "fact_radio_daily/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_1_summary/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_2_summary/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_3_summary/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_4_summary/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_5_summary/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_1_client/",
+    "sufix": ""
+  },
+  {
+   "type": "s3",
+   "bucket": "gogo-udp-ds-wap-stage",
+   "events": ["s3:ObjectCreated:*"],
+   "prefix": "type_2_client/",
+   "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_3_client/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_4_client/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_5_client/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_1_json/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_2_json/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_3_json/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_4_json/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_5_json/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_1_flatten/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_2_flatten/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_3_flatten/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_4_flatten/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "type_5_flatten/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/satcom/outages_summary/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/dim_flight_matched/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/ds/console_acpu_diagnostic_messages/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/satcom/antenna_freezing_profiles/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/nps/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/nps_raw/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/satcom/antenna_freezing/",
+    "sufix": ""
+  },
+
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-wap-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/satcom/kandu_files_minute/",
+    "sufix": ""
+  },
+
   {
     "type": "s3",
     "bucket": "gogo-udp-ds-wap-stage",
@@ -310,6 +571,20 @@
     "bucket": "gogo-udp-ds-wap-stage",
     "events": ["s3:ObjectCreated:*"],
     "prefix": "acwap_client/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/weather_daily/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/opex/weather_hourly/",
     "sufix": ""
   }
   ]
