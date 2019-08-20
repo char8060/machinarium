@@ -247,6 +247,14 @@ def get_metadata(object_path, schemas_list, tables_dict, partitions_dict, source
         # Inconsistency
         check_consistency = "{table}/{partition}/{file}".format(table=table, partition=partition, file=file)
 
+    elif source == 'uexp':
+        schema = "uexp"
+        table = get_table(object_path, schema, tables_dict)
+        partition = get_partition(object_path, (schema + '.' + table).lower(), partitions_dict)
+
+        # Inconsistency
+        check_consistency = "{table}/{partition}/{file}".format(table=table, partition=partition, file=file)
+
     else:
         schema = get_schema(object_path, schemas_list)
         table = get_table(object_path, schema, tables_dict)
@@ -292,6 +300,8 @@ def lambda_handler(event, context):
         source = 'wap'
     elif 'gogo-udp-sla-' in bucket:
         source = 'sla'
+    elif 'gogo-udp-uexp-' in bucket:
+        source = 'uexp'
     else:
         source = None
 
