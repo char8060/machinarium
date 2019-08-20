@@ -1,5 +1,5 @@
 # Name of schema on S3, that's why name is case sensitive
-SCHEMAS = ['RDP', 'XDW', 'opex', 'satcom', 'abs', 'wap', 'ds', 'sla']
+SCHEMAS = ['RDP', 'XDW', 'opex', 'satcom', 'abs', 'wap', 'ds', 'sla', 'uexp']
 
 # Dictionary of tables
 # Key: Schema
@@ -124,7 +124,10 @@ TABLES = {
             'DIM_MEDIA_USAGE_FLT_KEY',
             'FACT_MEDIA_USAGE',
             'FACT_USAGE'
-            ]
+            ],
+
+    'uexp': ['FIRST_FIFTEEN_DETAILED_EVENT'
+    ]
 }
 
 # Valid partitions for each table
@@ -237,5 +240,7 @@ PARTITIONS = {
     'xdw.dim_flight_periodic': ['partner_airline_code_icao', 'year', 'month'],
     'xdw.fact_media_usage': ["partition_date"],
     'xdw.dim_media_usage_flt_key': ["partition_date"],
-    'xdw.fact_usage': ["partition_date"]
+    'xdw.fact_usage': ["partition_date"],
+
+    'uexp.first_fifteen_detailed_event': ['source', 'partition_date']
 }
