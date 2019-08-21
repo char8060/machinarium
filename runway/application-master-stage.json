@@ -360,6 +360,20 @@
     "events": ["s3:ObjectCreated:*"],
     "prefix": "FIRST_FIFTEEN_DETAILED_EVENT/",
     "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-uexp-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "DEVICE_FIRST_FIFTEEN/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-uexp-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "TAIL_VLAN_IP/",
+    "sufix": ""
   }
   ]
 }
