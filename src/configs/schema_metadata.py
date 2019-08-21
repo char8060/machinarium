@@ -126,7 +126,9 @@ TABLES = {
             'FACT_USAGE'
             ],
 
-    'uexp': ['FIRST_FIFTEEN_DETAILED_EVENT'
+    'uexp': ['FIRST_FIFTEEN_DETAILED_EVENT',
+             'DEVICE_FIRST_FIFTEEN',
+             'TAIL_VLAN_IP'
     ]
 }
 
@@ -212,6 +214,10 @@ PARTITIONS = {
 
     'sla.fact_flight_availability_agg': ["partition_date", "flight_source"],
 
+    'uexp.first_fifteen_detailed_event': ["source", "partition_date"],
+    'uexp.device_first_fifteen': ["partition_date"],
+    'uexp.tail_vlan_ip': ["partition_date"],
+
     'wap.type_1_json': ["partition_date"],
     'wap.type_2_json': ["partition_date"],
     'wap.type_3_json': ["partition_date"],
@@ -240,7 +246,5 @@ PARTITIONS = {
     'xdw.dim_flight_periodic': ['partner_airline_code_icao', 'year', 'month'],
     'xdw.fact_media_usage': ["partition_date"],
     'xdw.dim_media_usage_flt_key': ["partition_date"],
-    'xdw.fact_usage': ["partition_date"],
-
-    'uexp.first_fifteen_detailed_event': ['source', 'partition_date']
+    'xdw.fact_usage': ["partition_date"]
 }
