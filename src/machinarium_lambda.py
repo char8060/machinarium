@@ -60,9 +60,9 @@ def insert_into_updates(connection, table, path, file, partition, time):
     :param partition: partition where file was updated/created. Type = String
     :param time: updated time. Datetime object.
     """
-    query = ''' 
-            INSERT INTO updates (`table_name`, `file_path`, `file_name`, `partition_name`,`event_time`, 
-                                 `updated_on`,`updated_by`) 
+    query = '''
+            INSERT INTO updates (`table_name`, `file_path`, `file_name`, `partition_name`,`event_time`,
+                                 `updated_on`,`updated_by`)
             VALUES ('{table_name}', '{file_path}', '{file_name}', '{partition}', '{event_time}',
                     UTC_TIMESTAMP(), "lambda")
             ON DUPLICATE KEY UPDATE
@@ -289,9 +289,9 @@ def lambda_handler(event, context):
 
     logger.info("Log stream name: {}".format(context.log_stream_name))
     logger.info("Event: {}".format(event))
-    bucket = urllib.parse.unquote_plus(event['Records'][0]['s3']['bucket']['name'].encode('utf8'))
+    bucket = urllib.parse.unquote_plus(event['Records'][0]['s3']['bucket']['name'])
     logger.info("S3 bucket: {}".format(bucket))
-    object_path = urllib.parse.unquote_plus(event['Records'][0]['s3']['object']['key'].encode('utf8'))
+    object_path = urllib.parse.unquote_plus(event['Records'][0]['s3']['object']['key'])
     logger.info("S3 object: {}".format(object_path))
 
     if 'gogo-udp-canonical-logs-' in bucket:
