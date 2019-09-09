@@ -1,4 +1,9 @@
 import unittest
+import pymysql
+from mock import mock, patch, MagicMock, call, Mock
+import db_module
+from db_module import db_mysql
+
 from machinarium_lambda import set_modules, \
                                get_connection, \
                                insert_into_updates, \
@@ -102,6 +107,20 @@ class TestLambda(unittest.TestCase):
         }
         with self.assertRaises(Exception):
             get_metadata(object_path, schemas_list, tables_dict, partitions_dict)
+
+    @patch('db_module.pymysql')
+    def test_get_connection(self, mock_sql):
+        self.assertIs(db_module.pymysql, mock_sql)
+        conn = Mock()
+        mock_sql.connect.return_value = conn
+        config = {
+            'host': 'db.machinarium.stage.gogoair.com',
+            'database': 'p2',
+            'user': 'machinarium',
+            'password': 'mc#Ku1P'
+        }
+        db_mysql.get_connection(config)
+        mock_sql.connect.assert_called_with(**config)
 
 
 if __name__ == '__main__':
