@@ -273,6 +273,20 @@ def get_metadata(object_path, schemas_list, tables_dict, partitions_dict, source
     return schema, table, path, file, partition
 
 
+def get_source(bucket):
+    if 'gogo-udp-canonical-logs-' in bucket:
+        source = 'canonical'
+    elif 'gogo-udp-ds-wap-' in bucket:
+        source = 'wap'
+    elif 'gogo-udp-sla-' in bucket:
+        source = 'sla'
+    elif 'gogo-udp-uexp-' in bucket:
+        source = 'uexp'
+    else:
+        source = None
+    return source
+
+
 def lambda_handler(event, context):
     """
     Entry point for AWS Lambada function.
@@ -294,16 +308,7 @@ def lambda_handler(event, context):
     object_path = urllib.parse.unquote_plus(event['Records'][0]['s3']['object']['key'])
     logger.info("S3 object: {}".format(object_path))
 
-    if 'gogo-udp-canonical-logs-' in bucket:
-        source = 'canonical'
-    elif 'gogo-udp-ds-wap-' in bucket:
-        source = 'wap'
-    elif 'gogo-udp-sla-' in bucket:
-        source = 'sla'
-    elif 'gogo-udp-uexp-' in bucket:
-        source = 'uexp'
-    else:
-        source = None
+    source = get_source(bucket)
 
     schema, table, path, file, partition = get_metadata(object_path, SCHEMAS, TABLES, PARTITIONS, source)
 
