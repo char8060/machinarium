@@ -356,6 +356,13 @@
   },
   {
     "type": "s3",
+    "bucket": "gogo-udp-ds-catalina-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "gogoabp_catalina_raw/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
     "bucket": "gogo-udp-uexp-stage",
     "events": ["s3:ObjectCreated:*"],
     "prefix": "FIRST_FIFTEEN_DETAILED_EVENT/",
