@@ -128,6 +128,23 @@ class TestLambda(unittest.TestCase):
         with self.assertRaises(Exception):
             get_metadata(object_path, schemas_list, tables_dict, partitions_dict)
 
+    def test_get_metadata_w_no_partitions(self):
+        s3_event_object = 'data/test/my_table/test_file.txt'
+        schemas = ['test', 'TEST', 'other', 'test.my_table']
+        tables = {
+            'test': ['my_table'],
+            'other': ['BIG_TABLE_NAME', 'MY_TABLE'],
+        }
+        partitions = {
+            'test.my_table': [],
+            'BIG_TABLE_NAME': ["partition_date"],
+            'MY_TABLE': ["partition_date"],
+        }
+
+        result = get_metadata(s3_event_object, schemas, tables, partitions)
+        expected = ('test', 'my_table', 'data/test/my_table', 'test_file.txt', '')
+        self.assertEqual(result, expected)
+
     @patch('machinarium_lambda.pymysql')
     def test_get_connection(self, mock_sql):
         conn = Mock()

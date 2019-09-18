@@ -1,9 +1,10 @@
-from datetime import datetime
-from os.path import split
-import urllib.request, urllib.parse, urllib.error
+import os
 import logging
 import pymysql
+from datetime import datetime
+import urllib.request, urllib.parse, urllib.error
 from importlib import import_module
+
 from configs.schema_metadata import SCHEMAS, TABLES, PARTITIONS
 
 # DevOps configs data
@@ -89,7 +90,7 @@ def get_file(object_path):
     :param object_path: String with file name and path to this file. Type = String
     :return: file. Type = String
     """
-    path, file = split(object_path)
+    path, file = os.path.split(object_path)
     if file != '':
         return file
     else:
@@ -177,7 +178,7 @@ def get_partition(object_path, table, partitions_dict):
 
     table_partitions = partitions_dict[table]
 
-    for element in split(object_path)[0].split('/'):
+    for element in os.path.split(object_path)[0].split('/'):
         if '=' in element:
             partitions_from_event_object.append(element)
             partitions_check_list.append(element.split('=')[0])
@@ -212,6 +213,11 @@ def get_partition(object_path, table, partitions_dict):
     return partition
 
 
+def join_into_path(*args):
+    '''Join two or more pathname components, inserting '/' as needed'''
+    return os.path.join(*args)
+
+
 def get_metadata(object_path, schemas_list, tables_dict, partitions_dict, source=None):
     """
     Returns parsed metadata from object_path.
@@ -229,7 +235,7 @@ def get_metadata(object_path, schemas_list, tables_dict, partitions_dict, source
         partition = get_partition(object_path, (schema + '.' + table).lower(), partitions_dict)
 
         # Inconsistency
-        check_consistency = "{partition}/{file}".format(table=table, partition=partition, file=file)
+        check_consistency = join_into_path(partition, file)
 
     elif source == 'wap':
         schema = "wap"
@@ -237,7 +243,7 @@ def get_metadata(object_path, schemas_list, tables_dict, partitions_dict, source
         partition = get_partition(object_path, (schema + '.' + table).lower(), partitions_dict)
 
         # Inconsistency
-        check_consistency = "{table}/{partition}/{file}".format(table=table, partition=partition, file=file)
+        check_consistency = join_into_path(table, partition, file)
 
     elif source == 'sla':
         schema = "sla"
@@ -245,7 +251,7 @@ def get_metadata(object_path, schemas_list, tables_dict, partitions_dict, source
         partition = get_partition(object_path, (schema + '.' + table).lower(), partitions_dict)
 
         # Inconsistency
-        check_consistency = "{table}/{partition}/{file}".format(table=table, partition=partition, file=file)
+        check_consistency = join_into_path(table, partition, file)
 
     elif source == 'uexp':
         schema = "uexp"
@@ -253,7 +259,7 @@ def get_metadata(object_path, schemas_list, tables_dict, partitions_dict, source
         partition = get_partition(object_path, (schema + '.' + table).lower(), partitions_dict)
 
         # Inconsistency
-        check_consistency = "{table}/{partition}/{file}".format(table=table, partition=partition, file=file)
+        check_consistency = join_into_path(table, partition, file)
 
     else:
         schema = get_schema(object_path, schemas_list)
@@ -261,7 +267,7 @@ def get_metadata(object_path, schemas_list, tables_dict, partitions_dict, source
         partition = get_partition(object_path, (schema + '.' + table).lower(), partitions_dict)
 
         # Inconsistency
-        check_consistency = "{table}/{partition}/{file}".format(table=table, partition=partition, file=file)
+        check_consistency = join_into_path(table, partition, file)
 
     if check_consistency not in object_path:
         warning = "There is no {consist} in {object_path}".format(consist=check_consistency,
@@ -269,7 +275,7 @@ def get_metadata(object_path, schemas_list, tables_dict, partitions_dict, source
         logger.warning(warning)
         raise Exception(warning)
 
-    path = split(object_path)[0]
+    path = os.path.split(object_path)[0]
     return schema, table, path, file, partition
 
 
