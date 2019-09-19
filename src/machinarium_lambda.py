@@ -261,6 +261,14 @@ def get_metadata(object_path, schemas_list, tables_dict, partitions_dict, source
         # Inconsistency
         check_consistency = join_into_path(table, partition, file)
 
+    elif source == 'ds':
+        schema = "ds"
+        table = get_table(object_path, schema, tables_dict)
+        partition = get_partition(object_path, (schema + '.' + table).lower(), partitions_dict)
+
+        # Inconsistency
+        check_consistency = "{table}/{partition}/{file}".format(table=table, partition=partition, file=file)
+
     else:
         schema = get_schema(object_path, schemas_list)
         table = get_table(object_path, schema, tables_dict)

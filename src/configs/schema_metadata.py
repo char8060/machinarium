@@ -61,7 +61,8 @@ TABLES = {
              'dim_flight_periodic'
              ],
     'ds': [
-        'console_acpu_diagnostic_messages'
+        'console_acpu_diagnostic_messages',
+        'gogoabp_catalina_raw'
     ],
 
     'RDP': ['fact_flight_availability',
@@ -86,6 +87,7 @@ TABLES = {
                'outages_summary',
                'antenna_freezing_profiles',
                'antenna_freezing',
+               'antennas_labels',
                ],
 
     'sla': ['FACT_FLIGHT_AVAILABILITY_AGG'],
@@ -140,6 +142,7 @@ PARTITIONS = {
     'abs.canonical_abs': ["partition_date", "source"],
 
     'ds.console_acpu_diagnostic_messages': ["partition_date", "source"],
+    'ds.gogoabp_catalina_raw': ["partition_date"],
 
     'opex.weather_daily': ["partition_date"],
     'opex.weather_hourly': ["partition_date"],
@@ -211,6 +214,7 @@ PARTITIONS = {
     'satcom.outages_summary': ["partition_date"],
     'satcom.antenna_freezing_profiles': ["partition_date"],
     'satcom.antenna_freezing': ["partition_date"],
+    'satcom.antennas_labels': ["sample_id"],
 
     'sla.fact_flight_availability_agg': ["partition_date", "flight_source"],
 

@@ -57,6 +57,13 @@
     "type": "s3",
     "bucket": "gogo-udp-ds-stage",
     "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/satcom/antennas_labels/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
     "prefix": "data/satcom/antenna_gmm_features/",
     "sufix": ""
   },
@@ -352,6 +359,13 @@
     "bucket": "gogo-udp-ds-stage",
     "events": ["s3:ObjectCreated:*"],
     "prefix": "data/opex/weather_hourly/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-catalina-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "gogoabp_catalina_raw/",
     "sufix": ""
   },
   {
