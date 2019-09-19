@@ -12,7 +12,7 @@
   ],
   "lambda": {
     "app_description": "AWS Lambda for triggering updates in S3 buckets and send updates in MySQL meta store",
-    "runtime": "python2.7",
+    "runtime": "python3.7",
     "handler": "machinarium_lambda.lambda_handler",
     "vpc_enabled": true
   },
