@@ -28,6 +28,7 @@ class TestLambda(unittest.TestCase):
     # get_file()
     def test_get_file_is_correct(self):
         self.assertEqual(get_file("some_dir/file.txt"), 'file.txt')
+        self.assertEqual(get_file("file.txt"), 'file.txt')
 
     def test_get_file_is_raising(self):
         with self.assertRaises(Exception):
@@ -35,9 +36,9 @@ class TestLambda(unittest.TestCase):
 
     # get_schema()
     def test_get_schema_is_correct(self):
-        object_path = 'data/other/BIG_TABLE_NAME/partition_date=2018-01-01/test_file.txt'
-        schemas_list = ['other']
-        self.assertEqual(get_schema(object_path, schemas_list), 'other')
+        self.assertEqual(get_schema('s3://gogo-udp-stage/CA/XDW/DIM/DIM_PRODUCT', ['XDW']), 'XDW')
+        self.assertEqual(get_schema('s3://gogo-udp-stage/CA/ABS/PARSED_ABS', ['ABS']), 'ABS')
+        self.assertEqual(get_schema('s3://gogo-udp-ds-stage/data/opex/dim_flight', ['opex']), 'opex')
 
     def test_get_schema_is_raising(self):
         object_path = ''
@@ -47,12 +48,19 @@ class TestLambda(unittest.TestCase):
 
     # get_table()
     def test_get_table_is_correct(self):
-        object_path = 'data/test/my_table/partition_date=2018-01-01/something=2017/flight_source=gdw/test_file.txt'
-        schema = 'abs'
-        table_dict = {
-            'abs': ['my_table']
+        object_path_xdw = 'gogo-udp-stage/CA/XDW/DIM/DIM_FLIGHT/YEAR=2019/MONTH=09/'
+        schema_xdw = 'xdw'
+        table_dict_xdw = {
+            'xdw': ['DIM_FLIGHT']
         }
-        self.assertEqual(get_table(object_path, schema, table_dict), 'my_table')
+        self.assertEqual(get_table(object_path_xdw, schema_xdw, table_dict_xdw), 'DIM_FLIGHT')
+
+        object_path_opex = 'gogo-udp-ds-stage/data/opex/dim_flight/'
+        schema_opex = 'opex'
+        table_dict_opex = {
+            'opex': ['dim_flight']
+        }
+        self.assertEqual(get_table(object_path_opex, schema_opex, table_dict_opex), 'dim_flight')
 
     def test_get_table_is_raising(self):
         object_path = '/not_correct/'
@@ -65,10 +73,10 @@ class TestLambda(unittest.TestCase):
 
     # get_partition()
     def test_get_partition_is_correct(self):
-        object_path = 'data/other/BIG_TABLE_NAME/partition_date=2018-01-01/test_file.txt'
-        table = 'table'
+        object_path = 'gogo-udp-ds-stage/data/opex/dim_flight/partition_date=2018-01-01/'
+        table = 'dim_flight'
         partition_dict = {
-            'table': ['partition_date']
+            'dim_flight': ['partition_date']
         }
         self.assertEqual(get_partition(object_path, table, partition_dict), 'partition_date=2018-01-01')
 
@@ -80,6 +88,13 @@ class TestLambda(unittest.TestCase):
         }
         self.assertEqual(get_partition(object_path, table, partition_dict), 'partition_date=2018-01-01/flight_source=gdw')
 
+        object_path = 'gogo-udp-stage/CA/XDW/DIM/DIM_FLIGHT/YEAR=2019/MONTH=09/'
+        table = 'DIM_FLIGHT'
+        partition_dict = {
+            'DIM_FLIGHT': ['YEAR', 'MONTH']
+        }
+        self.assertEqual(get_partition(object_path, table, partition_dict), 'YEAR=2019/MONTH=09')
+
     def test_get_partition_is_raising(self):
         object_path = '/not_correct/'
         table = 'not_correct'
@@ -90,7 +105,6 @@ class TestLambda(unittest.TestCase):
             get_partition(object_path, table, partition_dict)
 
     # get_metadata()
-    # docstring in get_metadata is not correct.
     def test_get_metadata_is_correct(self):
         schemas = ['test', 'TEST', 'other', 'test.my_table']
 
