@@ -343,18 +343,19 @@ def lambda_handler(event, context):
     try:
         conn = get_connection(metalayer_configs)
     except Exception as details:
-        logger.error("Log stream name: {log_stream}. "
-                     "{exception}. "
-                     "Could not connect to the RDS instance. "
-                     "Host: {host}, Database: {db}, User: {user}, Port: {port}, Connection timeout: {con_tout}"
-                     .format(log_stream=context.log_stream_name,
-                             exception=details,
-                             host=metalayer_configs['host'],
-                             db=metalayer_configs['database'],
-                             user=metalayer_configs['user'],
-                             port=metalayer_configs['port'],
-                             con_tout=metalayer_configs['connect_timeout']))
-        raise Exception
+        error_message = ("Log stream name: {log_stream}. "
+                         "Could not connect to the RDS instance. "
+                         "Host: {host}, Database: {db}, User: {user}, Port: {port}, Connection timeout: {con_tout}. "
+                         "Details :: {exception}"
+                         .format(log_stream=context.log_stream_name,
+                                 exception=details,
+                                 host=metalayer_configs['host'],
+                                 db=metalayer_configs['database'],
+                                 user=metalayer_configs['user'],
+                                 port=metalayer_configs['port'],
+                                 con_tout=metalayer_configs['connect_timeout']))
+        logger.error(error_message)
+        raise Exception(error_message)
 
     try:
         insert_into_updates(connection=conn, table=table, path=path, file=file, partition=partition, time=event_time)
