@@ -214,7 +214,7 @@ PARTITIONS = {
     'satcom.outages_summary': ["partition_date"],
     'satcom.antenna_freezing_profiles': ["partition_date"],
     'satcom.antenna_freezing': ["partition_date"],
-    'satcom.antennas_labels': ["sample_id"],
+    'satcom.antennas_labels': [],
 
     'sla.fact_flight_availability_agg': ["partition_date", "flight_source"],
 
