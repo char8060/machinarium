@@ -328,42 +328,51 @@ def lambda_handler(event, context):
 
     source = get_source(bucket)
 
-    schema, table, path, file, partition = get_metadata(object_path, SCHEMAS, TABLES, PARTITIONS, source)
-
-    table = f"{schema.lower()}.{table.lower()}"
-
-    event_time = datetime.strptime(event['Records'][0]['eventTime'], "%Y-%m-%dT%H:%M:%S.%fZ")
-
-    logger.info(f"Table: {table}")
-    logger.info(f"File path on S3: {bucket}/{path}")
-    logger.info(f"File:{file}")
-    logger.info(f"Partition(s): {partition}")
-    logger.info(f"Event time: {event_time}")
-
     try:
-        conn = get_connection(metalayer_configs)
-    except Exception as details:
-        error_message = ("Log stream name: {log_stream}. "
-                         "Could not connect to the RDS instance. "
-                         "Host: {host}, Database: {db}, User: {user}, Port: {port}, Connection timeout: {con_tout}. "
-                         "Details :: {exception}"
-                         .format(log_stream=context.log_stream_name,
-                                 exception=details,
-                                 host=metalayer_configs['host'],
-                                 db=metalayer_configs['database'],
-                                 user=metalayer_configs['user'],
-                                 port=metalayer_configs['port'],
-                                 con_tout=metalayer_configs['connect_timeout']))
-        logger.error(error_message)
-        raise Exception(error_message)
+        schema, table, path, file, partition = get_metadata(object_path, SCHEMAS, TABLES, PARTITIONS, source)
 
-    try:
-        insert_into_updates(connection=conn, table=table, path=path, file=file, partition=partition, time=event_time)
-    except Exception as details:
-        error_message = f"Log stream name: {context.log_stream_name}. " \
-                        f"Can not execute insert into [p2].[updates] :: {details}"
-        logger.error(error_message)
-        raise Exception(error_message)
+        table = f"{schema.lower()}.{table.lower()}"
 
-    conn.close()
-    logger.info("Done. Table is updated")
+        event_time = datetime.strptime(event['Records'][0]['eventTime'], "%Y-%m-%dT%H:%M:%S.%fZ")
+
+        logger.info(f"Table: {table}")
+        logger.info(f"File path on S3: {bucket}/{path}")
+        logger.info(f"File:{file}")
+        logger.info(f"Partition(s): {partition}")
+        logger.info(f"Event time: {event_time}")
+
+        try:
+            conn = get_connection(metalayer_configs)
+        except Exception as details:
+            error_message = ("Log stream name: {log_stream}. "
+                             "Could not connect to the RDS instance. "
+                             "Host: {host}, Database: {db}, User: {user}, Port: {port}, Connection timeout: {con_tout}."
+                             " Details :: {exception}"
+                             .format(log_stream=context.log_stream_name,
+                                     exception=details,
+                                     host=metalayer_configs['host'],
+                                     db=metalayer_configs['database'],
+                                     user=metalayer_configs['user'],
+                                     port=metalayer_configs['port'],
+                                     con_tout=metalayer_configs['connect_timeout']))
+            logger.error(error_message)
+            raise Exception(error_message)
+
+        try:
+            insert_into_updates(connection=conn,
+                                table=table,
+                                path=path,
+                                file=file,
+                                partition=partition,
+                                time=event_time)
+        except Exception as details:
+            error_message = f"Log stream name: {context.log_stream_name}. " \
+                            f"Can not execute insert into [p2].[updates] :: {details}"
+            logger.error(error_message)
+            raise Exception(error_message)
+
+        conn.close()
+        logger.info("Done. Table is updated")
+
+    except Exception as details:
+        logger.warning(f"Something happened:: {details}. Finishing the program")
