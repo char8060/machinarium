@@ -299,6 +299,8 @@ def get_source(bucket):
         source = 'sla'
     elif 'gogo-udp-uexp-' in bucket:
         source = 'uexp'
+    elif 'gogo-udp-ds-catalina-' in bucket:
+        source = 'ds'
     else:
         source = None
     return source

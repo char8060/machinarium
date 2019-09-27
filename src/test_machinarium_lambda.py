@@ -130,6 +130,34 @@ class TestLambda(unittest.TestCase):
             'test_file.txt',
             'partition_date=2018-01-01/flight_source=gdw'))
 
+    def test_get_metadata_real_cases(self):
+        from configs.schema_metadata import SCHEMAS, TABLES, PARTITIONS
+
+        # TODO: add cases for:
+        #      - gogo-udp-uexp-prod
+        #      - gogo-udp-sla-prod
+        #      - gogo-udp-ds-wap-prod
+        s3_event_objects = [
+            ["gogoabp_catalina_raw/partition_date=2019-08-04/gogoabp-catalina_2f0fca26-904e-4071-86c4-25b6e743a72a.orc",
+             "ds",
+             "gogoabp_catalina_raw",
+             "partition_date=2019-08-04",
+             "gogo-udp-ds-catalina-prod"],
+            ["source=console/partition_date=2019-09-12/part-00013-0dc66e4a-315a-43c0-a98f-648194350131.c000.snappy",
+             "abs",
+             "canonical_abs",
+             "source=console/partition_date=2019-09-12",
+             "gogo-udp-canonical-logs-prod"]
+        ]
+        for s3_event_object, schema, table, partition, bucket in s3_event_objects:
+            source = get_source(bucket)
+            result_schema, result_table, result_path, result_file, result_partition = (
+                get_metadata(s3_event_object, SCHEMAS, TABLES, PARTITIONS, source)
+            )
+            self.assertEqual(schema, result_schema)
+            self.assertEqual(table, result_table)
+            self.assertEqual(partition, result_partition)
+
     def test_get_metadata_is_raising(self):
         object_path = 'not_correct'
         schemas_list = ['not_correct']
