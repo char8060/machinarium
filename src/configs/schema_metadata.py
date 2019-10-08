@@ -124,9 +124,11 @@ TABLES = {
             'DIM_FLIGHT',
             'DIM_FLIGHT_PERIODIC',
             'DIM_MEDIA_USAGE_FLT_KEY',
+            'DIM_DEVICE_DAILY',
             'FACT_MEDIA_USAGE',
             'FACT_USAGE',
-            'FACT_CE_FLIGHT_METRIC'
+            'FACT_CE_FLIGHT_METRIC',
+            'FACT_CE_FLIGHT_FIRST15'
             ],
 
     'uexp': ['FIRST_FIFTEEN_DETAILED_EVENT',
@@ -251,6 +253,8 @@ PARTITIONS = {
     'xdw.dim_flight_periodic': ['partner_airline_code_icao', 'year', 'month'],
     'xdw.fact_media_usage': ["partition_date"],
     'xdw.dim_media_usage_flt_key': ["partition_date"],
+    'xdw.dim_device_daily': ["partition_date"],
     'xdw.fact_usage': ["partition_date"],
-    'xdw.fact_ce_flight_metric': ["partition_date"]
+    'xdw.fact_ce_flight_metric': ["partition_date"],
+    'xdw.fact_ce_flight_first15': ["partition_date"]
 }
