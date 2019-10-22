@@ -1,5 +1,5 @@
 # Name of schema on S3, that's why name is case sensitive
-SCHEMAS = ['RDP', 'XDW', 'opex', 'satcom', 'abs', 'wap', 'ds', 'sla', 'uexp']
+SCHEMAS = ['RDP', 'XDW', 'opex', 'satcom', 'abs', 'wap', 'ds', 'sla', 'uexp', 'STG']
 
 # Dictionary of tables
 # Key: Schema
@@ -92,6 +92,8 @@ TABLES = {
 
     'sla': ['FACT_FLIGHT_AVAILABILITY_AGG'],
 
+    'STG': ['iptv_enriched'],
+
     'wap': ['type_1_json',
             'type_2_json',
             'type_3_json',
@@ -128,7 +130,9 @@ TABLES = {
             'FACT_MEDIA_USAGE',
             'FACT_USAGE',
             'FACT_CE_FLIGHT_METRIC',
-            'FACT_CE_FLIGHT_FIRST15'
+            'FACT_CE_FLIGHT_FIRST15',
+            'FACT_IPTV_MPTS',
+            'DIM_IPTV_MPTS_FLT_KEY'
             ],
 
     'uexp': ['FIRST_FIFTEEN_DETAILED_EVENT',
@@ -256,5 +260,9 @@ PARTITIONS = {
     'xdw.dim_device_daily': ["partition_date"],
     'xdw.fact_usage': ["partition_date"],
     'xdw.fact_ce_flight_metric': ["partition_date"],
-    'xdw.fact_ce_flight_first15': ["partition_date"]
+    'xdw.fact_ce_flight_first15': ["partition_date"],
+    'xdw.fact_iptv_mpts': ["partition_date"],
+    'xdw.dim_iptv_mpts_flt_key': ["partition_date"],
+
+    'stg.iptv_enriched': ["partition_date"]
 }
