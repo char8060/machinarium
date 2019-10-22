@@ -38,6 +38,7 @@ class TestLambda(unittest.TestCase):
     def test_get_schema_is_correct(self):
         self.assertEqual(get_schema('s3://gogo-udp-stage/CA/XDW/DIM/DIM_PRODUCT', ['XDW']), 'XDW')
         self.assertEqual(get_schema('s3://gogo-udp-stage/CA/ABS/PARSED_ABS', ['ABS']), 'ABS')
+        self.assertEqual(get_schema('s3://gogo-udp-stage/CA/STG/IPTV_ENRICHED', ['STG']), 'STG')
         self.assertEqual(get_schema('s3://gogo-udp-ds-stage/data/opex/dim_flight', ['opex']), 'opex')
 
     def test_get_schema_is_raising(self):
