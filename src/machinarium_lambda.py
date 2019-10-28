@@ -306,14 +306,14 @@ def get_source(bucket):
     return source
 
 
-def lambda_handler(event, context):
+def lambda_handler(event: dict, context):
     """
     Entry point for AWS Lambada function.
     More details are here: https://docs.aws.amazon.com/lambda/latest/dg/welcome.html
     About "context":  https://docs.aws.amazon.com/lambda/latest/dg/python-context-object.html
 
-    :param event: S3 metadata in JSON like format. Type = String
-    :param context: runtime information; object.
+    :param event: S3 metadata in JSON like format
+    :param context: runtime information; object
     """
     env = ACCOUNTS[context.invoked_function_arn.split(":")[4]].lower()
 
