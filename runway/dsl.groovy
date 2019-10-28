@@ -3,7 +3,7 @@ import utilities.GogoUtilities
 SHELL_STEPS = sprintf('''#!/bin/bash -x
 mkdir -p runway/FS_ROOT/etc/gogo
 mkdir -p runway/FS_ROOT/application/bin
-docker run --rm -v $(pwd):/mnt/ python:2 pip install --upgrade -t /mnt/src/ -r /mnt/requirements.txt
+docker run --rm -v $(pwd):/mnt/ python:3 pip install --upgrade -t /mnt/src/ -r /mnt/requirements.txt
 mkdir -p src/library
 cp utilities/log_and_control/library/* src/library/
 cd src
