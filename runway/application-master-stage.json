@@ -47,8 +47,7 @@
     "prefix": "data/ds/flight_segments_batch/",
     "sufix": ""
   },
-
- {
+  {
     "type": "s3",
     "bucket": "gogo-udp-ds-stage",
     "events": ["s3:ObjectCreated:*"],
@@ -104,7 +103,7 @@
     "prefix": "data/satcom/kandu_files/",
     "sufix": ""
   },
-    {
+  {
     "type": "s3",
     "bucket": "gogo-udp-ds-stage",
     "events": ["s3:ObjectCreated:*"],
