@@ -62,7 +62,8 @@ TABLES = {
              ],
     'ds': [
         'console_acpu_diagnostic_messages',
-        'gogoabp_catalina_raw'
+        'gogoabp_catalina_raw',
+        'flight_segments_batch'
     ],
 
     'RDP': ['fact_flight_availability',
@@ -150,6 +151,7 @@ PARTITIONS = {
 
     'ds.console_acpu_diagnostic_messages': ["partition_date", "source"],
     'ds.gogoabp_catalina_raw': ["partition_date"],
+    'ds.flight_segments_batch': ["partition_date"],
 
     'opex.weather_daily': ["partition_date"],
     'opex.weather_hourly': ["partition_date"],

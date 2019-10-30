@@ -32,11 +32,19 @@
     "prefix": "data/opex/satcom_decile_grid/",
     "sufix": ""
   },
+
   {
     "type": "s3",
     "bucket": "gogo-udp-ds-stage",
     "events": ["s3:ObjectCreated:*"],
     "prefix": "data/opex/messages_logs/",
+    "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-stage",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/ds/flight_segments_batch/",
     "sufix": ""
   },
   {
@@ -95,7 +103,7 @@
     "prefix": "data/satcom/kandu_files/",
     "sufix": ""
   },
-    {
+  {
     "type": "s3",
     "bucket": "gogo-udp-ds-stage",
     "events": ["s3:ObjectCreated:*"],
