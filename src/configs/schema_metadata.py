@@ -133,7 +133,9 @@ TABLES = {
             'FACT_CE_FLIGHT_METRIC',
             'FACT_CE_FLIGHT_FIRST15',
             'FACT_IPTV_MPTS',
-            'DIM_IPTV_MPTS_FLT_KEY'
+            'DIM_IPTV_MPTS_FLT_KEY',
+            'FACT_IPTV_CHANNEL',
+            'DIM_IPTV_CHANNEL_FLT_KEY'
             ],
 
     'uexp': ['FIRST_FIFTEEN_DETAILED_EVENT',
@@ -265,6 +267,8 @@ PARTITIONS = {
     'xdw.fact_ce_flight_first15': ["partition_date"],
     'xdw.fact_iptv_mpts': ["partition_date"],
     'xdw.dim_iptv_mpts_flt_key': ["partition_date"],
+    'xdw.fact_iptv_channel': ["partition_date"],
+    'xdw.dim_iptv_channel_flt_key': ["partition_date"],
 
     'stg.iptv_enriched': ["partition_date"]
 }
