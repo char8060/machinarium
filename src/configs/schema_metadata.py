@@ -94,7 +94,10 @@ TABLES = {
 
     'sla': ['FACT_FLIGHT_AVAILABILITY_AGG'],
 
-    'STG': ['IPTV_ENRICHED'],
+    'STG': ['IPTV_ENRICHED',
+
+            'ABP_MESSAGES_CNT'
+            ],
 
     'wap': ['type_1_json',
             'type_2_json',
