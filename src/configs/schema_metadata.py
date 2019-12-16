@@ -275,5 +275,6 @@ PARTITIONS = {
     'xdw.fact_iptv_channel': ["partition_date"],
     'xdw.dim_iptv_channel_flt_key': ["partition_date"],
 
-    'stg.iptv_enriched': ["partition_date"]
+    'stg.iptv_enriched': ["partition_date"],
+    'stg.abp_messages_cnt' : ["partition_date"]
 }
