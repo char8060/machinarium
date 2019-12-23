@@ -301,6 +301,8 @@ def get_source(bucket):
         source = 'uexp'
     elif 'gogo-udp-ds-catalina-' in bucket:
         source = 'ds'
+    elif 'gogo-udp-netcool-' in bucket:
+        source = 'STG'
     else:
         source = None
     return source
