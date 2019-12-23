@@ -403,13 +403,6 @@
     "events": ["s3:ObjectCreated:*"],
     "prefix": "TAIL_VLAN_IP/",
     "sufix": ""
-  },
-  {
-    "type": "s3",
-    "bucket": "gogo-udp-netcool-stage",
-    "events": ["s3:ObjectCreated:*"],
-    "prefix": "/",
-    "sufix": ""
   }
   ]
 }
