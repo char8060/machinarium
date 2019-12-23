@@ -95,7 +95,8 @@ TABLES = {
     'sla': ['FACT_FLIGHT_AVAILABILITY_AGG'],
 
     'STG': ['IPTV_ENRICHED',
-            'ABP_MESSAGES_CNT'
+            'ABP_MESSAGES_CNT',
+            'netcool_reporter_status'
             ],
 
     'wap': ['type_1_json',
@@ -275,5 +276,6 @@ PARTITIONS = {
     'xdw.dim_iptv_channel_flt_key': ["partition_date"],
 
     'stg.iptv_enriched': ["partition_date"],
+    'stg.netcool_reporter_status': ["partition_date"],
     'stg.abp_messages_cnt' : ["partition_date"]
 }
