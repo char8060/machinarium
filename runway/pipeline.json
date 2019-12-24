@@ -27,7 +27,9 @@
       "gogo-udp-canonical-logs-prod",
       "gogo-udp-ds-wap-stage",
       "gogo-udp-ds-wap-prod",
-      "gogo-udp-maslo-prod"
+      "gogo-udp-maslo-prod",
+      "gogo-udp-netcool-prod",
+      "gogo-udp-netcool-stage"
     ]
   }
 }
