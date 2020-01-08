@@ -303,6 +303,8 @@ def get_source(bucket):
         source = 'ds'
     elif 'gogo-udp-netcool-' in bucket:
         source = 'STG'
+    elif 'SERVICE_MAPPING_USAGE' in bucket:
+        source = 'STG'
     else:
         source = None
     return source

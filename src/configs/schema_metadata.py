@@ -96,7 +96,8 @@ TABLES = {
 
     'STG': ['IPTV_ENRICHED',
             'ABP_MESSAGES_CNT',
-            'netcool_reporter_status'
+            'netcool_reporter_status',
+            'service_mapping_usage'
             ],
 
     'wap': ['type_1_json',
@@ -277,5 +278,6 @@ PARTITIONS = {
 
     'stg.iptv_enriched': ["partition_date"],
     'stg.netcool_reporter_status': ["partition_date"],
-    'stg.abp_messages_cnt' : ["partition_date"]
+    'stg.abp_messages_cnt' : ["partition_date"],
+    'stg.service_mapping_usage' : []
 }
