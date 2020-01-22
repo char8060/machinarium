@@ -7,3 +7,7 @@ metalayer_config = {
     'port': 3306,
     'connect_timeout': 90
 }
+
+p2_job_orchestrator = {
+    "host": "http://internal-p2joborchestrationudp-2107850887.us-east-1.elb.amazonaws.com"
+}

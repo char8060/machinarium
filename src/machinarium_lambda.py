@@ -4,6 +4,7 @@ from types import ModuleType
 import os
 import logging
 import pymysql
+import requests
 from datetime import datetime
 import urllib.parse
 from importlib import import_module
@@ -308,6 +309,25 @@ def get_source(bucket):
     return source
 
 
+def send_update_request(host, table, path, file, partition, time):
+    url = "{}/v1/updates".format(host)
+
+    params = {
+        "table": table,
+        "file_path": path,
+        "file_name": file,
+        "partition": partition,
+        "updated_by": "lambda",
+        "event_time": time.strftime("%Y-%m-%d %H:%M:%S")
+    }
+
+    response = requests.post(url, params=params)
+    if response.ok:
+        logger.info(response.json())
+    else:
+        raise Exception("Could not insert update via P2 API: {}".format(response.json()))
+
+
 def lambda_handler(event: dict, context):
     """
     Entry point for AWS Lambada function.
@@ -377,6 +397,13 @@ def lambda_handler(event: dict, context):
 
         conn.close()
         logger.info("Done. Table is updated")
+
+        # TODO: Make it work in all environments
+        if env == "stage":
+            logger.info("Trying to insert update via P2 API...")
+            p2_api_host = env_config.p2_job_orchestrator["host"]
+            send_update_request(p2_api_host, table, path, file, partition, event_time)
+            logger.info("Done. Update inserted via P2 API")
 
     except Exception as details:
         logger.warning(f"Something happened:: {details}. Finishing the program")
