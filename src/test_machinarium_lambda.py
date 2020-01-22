@@ -9,7 +9,8 @@ from machinarium_lambda import set_modules, \
                                get_metadata, \
                                get_connection, \
                                get_source, \
-                               insert_into_updates
+                               insert_into_updates, \
+                               send_update_request
 
 
 class TestLambda(unittest.TestCase):
@@ -254,6 +255,31 @@ class TestLambda(unittest.TestCase):
 
     def test_get_source_is_none(self):
         self.assertIsNone(get_source('not_correct_input'))
+
+    @patch('machinarium_lambda.requests')
+    def test_send_update_request(self, mock_requests):
+        response = Mock()
+        mock_requests.post.return_value = response
+
+        host = "http://localhost:5000"
+        mock_url = "{}/v1/updates".format(host)
+        table = "uexp.device_first_fifteen"
+        path = "DEVICE_FIRST_FIFTEEN/partition_date=2020-01-20"
+        file = "part-00001-4f7fdaad-cba0-460c-bd59-1d8d5fa0b3c5-c000.snappy.parquet"
+        partition = "partition_date=2020-01-20"
+        event_time = datetime.datetime.utcnow()
+
+        mock_params = {
+            "table": table,
+            "file_path": path,
+            "file_name": file,
+            "partition": partition,
+            "updated_by": "lambda",
+            "event_time": event_time.strftime("%Y-%m-%d %H:%M:%S")
+        }
+
+        send_update_request(host, table, path, file, partition, event_time)
+        mock_requests.post.assert_called_with(mock_url, params=mock_params)
 
 
 if __name__ == '__main__':
