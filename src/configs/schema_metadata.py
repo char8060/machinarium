@@ -58,7 +58,8 @@ TABLES = {
 
              'dim_flight',
              'dim_flight_matched',
-             'dim_flight_periodic'
+             'dim_flight_periodic',
+             'canonical_console'
              ],
     'ds': [
         'console_acpu_diagnostic_messages',
@@ -209,6 +210,7 @@ PARTITIONS = {
 
     'opex.abs_device_info': ["source", "partition_date"],
     'opex.abs_device_info_with_duplication': ["source", "partition_date"],
+    'opex.canonical_console': ["partition_date"],
 
     'rdp.fact_flight_availability': ["partition_date", "flight_source"],
     'rdp.fact_flight_segment': ["partition_date", "flight_source"],
