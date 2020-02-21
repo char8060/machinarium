@@ -409,6 +409,13 @@
     "events": ["s3:ObjectCreated:*"],
     "prefix": "data/opex/canonical_console/",
     "sufix": ""
+  },
+  {
+    "type": "s3",
+    "bucket": "gogo-udp-ds-prod",
+    "events": ["s3:ObjectCreated:*"],
+    "prefix": "data/stg/gs_raw/",
+    "sufix": ""
   }
   ]
 }
